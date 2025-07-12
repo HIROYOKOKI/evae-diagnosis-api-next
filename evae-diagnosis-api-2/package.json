@@ -1,5 +1,5 @@
 {
-  "name": "evae-diagnosis-api",
+  "name": "evae-diagnosis-api-next",
   "version": "1.0.0",
   "scripts": {
     "dev": "next dev",
