@@ -83,8 +83,8 @@ if (step >= questions.length) {
   const query = new URLSearchParams({
   E: score.E,
   V: score.V,
-  Λ: score['Λ'],
-  Ǝ: score['Ǝ'],
+  L: score['Λ'],  // Λ → L に変換
+  R: score['Ǝ'],  // Ǝ → R に変換
 }).toString();
 
   // 遷移（ΛとƎはエンコードされたままでOK）
