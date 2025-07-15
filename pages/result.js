@@ -10,8 +10,6 @@ export default function Result() {
   useEffect(() => {
     if (!router.isReady) return;
 
-    const { E, V, Λ, Ǝ } = router.query;
-
    const { E, V, L, R } = router.query;
 
 if (E && V && L && R) {
