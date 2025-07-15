@@ -45,9 +45,14 @@ E: ${E}, V: ${V}, Λ: ${Λ}, Ǝ: ${Ǝ}
     }
 
     const data = await response.json();
-    const comment = data.choices?.[0]?.message?.content ?? '診断コメントが取得できませんでした。';
+const comment = data?.choices?.[0]?.message?.content?.trim();
 
-    return res.status(200).json({ comment });
+if (!comment) {
+  return res.status(500).json({ error: '診断コメントが取得できませんでした。' });
+}
+
+return res.status(200).json({ comment });
+
   } catch (err) {
     console.error('構造診断エラー:', err);
     return res.status(500).json({ error: `サーバーエラー: ${err.message}` });
