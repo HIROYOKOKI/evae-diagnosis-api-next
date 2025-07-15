@@ -1,77 +1,104 @@
+// pages/diagnosis.js
 import { useState } from 'react';
-import { useRouter } from 'next/router';
 
-export default function DiagnosisPage() {
-  const router = useRouter();
-  const [step, setStep] = useState(0);
-  const [answers, setAnswers] = useState({});
+const questions = [
+  {
+    text: 'Q1. あなたが何かを理解したいとき、まずどんな行動をとりますか？',
+    options: [
+      { label: 'A', text: '実際に見たり、体験して確かめる', structure: 'E' },
+      { label: 'B', text: '他の人の気持ちや空気を感じ取る', structure: 'V' },
+      { label: 'C', text: '背景や仕組みを論理的に整理する', structure: 'Λ' },
+      { label: 'D', text: '常識を逆から見て、新しい視点を考える', structure: 'Ǝ' },
+    ],
+  },
+  {
+    text: 'Q2. 人との関わりで「大事にしたい」と感じることは？',
+    options: [
+      { label: 'A', text: '物事がスムーズに運ぶ仕組みやバランス', structure: 'E' },
+      { label: 'B', text: '相手の感情や空気を感じ取ること', structure: 'V' },
+      { label: 'C', text: '相手が本当に言いたいことの“構造”を掴むこと', structure: 'Λ' },
+      { label: 'D', text: '言葉では表せないけれど“ひらめき”でつながること', structure: 'Ǝ' },
+    ],
+  },
+  {
+    text: 'Q3. あなたが「これは自分らしい考え方だ」と感じるのは？',
+    options: [
+      { label: 'A', text: '目の前にあることを理論的に整理して理解する', structure: 'E' },
+      { label: 'B', text: '感覚的に「合う／合わない」で判断する', structure: 'V' },
+      { label: 'C', text: 'なぜそれが正しいのか、自分の中で深く定義してみる', structure: 'Λ' },
+      { label: 'D', text: '一度すべてを壊してから、ゼロから再構築する', structure: 'Ǝ' },
+    ],
+  },
+  {
+    text: 'Q4. あなたが一番“ワクワクする瞬間”はどんなときですか？',
+    options: [
+      { label: 'A', text: '現実の中に新しい法則や秩序を見つけたとき', structure: 'E' },
+      { label: 'B', text: '誰かと気持ちが通じたとき', structure: 'V' },
+      { label: 'C', text: '考え方や概念が深くつながったとき', structure: 'Λ' },
+      { label: 'D', text: '世界の見え方が一気に変わるような発見をしたとき', structure: 'Ǝ' },
+    ],
+  },
+  {
+    text: 'Q5. あなたが「自分らしさ」を感じるのは、どんな状態にいるときですか？',
+    options: [
+      { label: 'A', text: '落ち着いて周囲を観察し、秩序を保っているとき', structure: 'E' },
+      { label: 'B', text: '感情の動きや他人とのつながりを感じているとき', structure: 'V' },
+      { label: 'C', text: '物事の意味や構造に自分の意志を通しているとき', structure: 'Λ' },
+      { label: 'D', text: '常識がくつがえされて、新しい視点が開けるとき', structure: 'Ǝ' },
+    ],
+  },
+];
 
-  const questions = [
-    {
-      id: 1,
-      question: '何かを決めるとき、あなたは？',
-      options: [
-        { label: 'まず動いてみる', layer: 'E' },
-        { label: '感情を感じて選ぶ', layer: 'V' },
-        { label: '情報を整理してから決める', layer: 'Λ' },
-        { label: 'ふと降りてきた直感で選ぶ', layer: 'Ǝ' },
-      ],
-    },
-    {
-      id: 2,
-      question: '今の自分に一番近いのは？',
-      options: [
-        { label: '突き動かされて動いている感じ', layer: 'E' },
-        { label: '人の気持ちに敏感になっている感じ', layer: 'V' },
-        { label: '頭で整理して進もうとしている感じ', layer: 'Λ' },
-        { label: 'なぜか意味もなくわかる気がする', layer: 'Ǝ' },
-      ],
-    },
-  ];
+export default function Diagnosis() {
+  const [current, setCurrent] = useState(0);
+  const [scores, setScores] = useState({ E: 0, V: 0, Λ: 0, Ǝ: 0 });
+  const [finished, setFinished] = useState(false);
+  const [comment, setComment] = useState('');
 
-  const handleAnswer = (layer) => {
-    const newAnswers = { ...answers, [questions[step].id]: layer };
-    setAnswers(newAnswers);
+  const handleSelect = async (structure) => {
+    const newScores = { ...scores, [structure]: scores[structure] + 1 };
+    setScores(newScores);
 
-    if (step + 1 >= questions.length) {
-      const score = { E: 0, V: 0, Λ: 0, Ǝ: 0 };
-      Object.values(newAnswers).forEach((layer) => {
-        score[layer] = (score[layer] || 0) + 1;
-      });
-
-      const query = new URLSearchParams({
-        E: score.E,
-        V: score.V,
-        L: score['Λ'], // Λ → L
-        R: score['Ǝ'], // Ǝ → R
-      }).toString();
-
-      router.push(`/result?${query}`);
+    if (current + 1 < questions.length) {
+      setCurrent(current + 1);
     } else {
-      setStep(step + 1);
+      setFinished(true);
+      const res = await fetch('/api/structure-diagnose', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(newScores),
+      });
+      const data = await res.json();
+      setComment(data.comment);
     }
   };
 
-  return (
-    <div style={{ padding: '2rem' }}>
-      <h1>ソウルレイヤー診断</h1>
-      <p>{questions[step].question}</p>
-      <div style={{ marginTop: '1rem' }}>
-        {questions[step].options.map((opt, i) => (
-          <button
-            key={i}
-            onClick={() => handleAnswer(opt.layer)}
-            style={{
-              margin: '0.5rem',
-              padding: '1rem',
-              fontSize: '1rem',
-              cursor: 'pointer',
-            }}
-          >
-            {opt.label}
-          </button>
-        ))}
+  if (finished) {
+    return (
+      <div className="p-6 max-w-xl mx-auto">
+        <h2 className="text-xl font-bold mb-4">あなたのソウルレイヤー診断結果</h2>
+        <p className="bg-gray-100 p-4 rounded shadow">{comment}</p>
       </div>
+    );
+  }
+
+  const q = questions[current];
+
+  return (
+    <div className="p-6 max-w-xl mx-auto">
+      <h2 className="text-xl font-bold mb-6">{q.text}</h2>
+      <ul className="space-y-4">
+        {q.options.map((opt) => (
+          <li key={opt.label}>
+            <button
+              className="w-full text-left border p-4 rounded hover:bg-gray-100"
+              onClick={() => handleSelect(opt.structure)}
+            >
+              <strong>{opt.label}.</strong> {opt.text}
+            </button>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }
