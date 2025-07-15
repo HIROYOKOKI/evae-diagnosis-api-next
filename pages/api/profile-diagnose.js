@@ -7,16 +7,14 @@ export default async function handler(req, res) {
 
   const { name, birthdate, bloodType, gender, romanticPref } = req.body;
 
-  // 入力バリデーション
   if (!name || !birthdate || !bloodType || !gender || !romanticPref) {
     return res.status(400).json({ error: '全ての項目を入力してください。' });
   }
 
-  // GPTプロンプト生成
   const prompt = `
-あなたは魂と心の傾向を診断するAIです。
-以下の個人情報をもとに、その人の性格・恋愛傾向・心のバランスについて、
-やさしく、わかりやすく、120文字以内でコメントしてください。
+あなたは自己理解のための「性格・恋愛傾向診断」を行うAIです。
+以下の5つの情報をもとに、相手が前向きな気持ちになれるようなコメントを
+「やさしい」「わかりやすい」「ちょっと嬉しくなる」感じで書いてください。
 
 ▼ 入力データ：
 - 名前（仮名）：${name}
@@ -25,8 +23,12 @@ export default async function handler(req, res) {
 - 性別：${gender}
 - 恋愛対象：${romanticPref}
 
-※占いや診断のような口調で、ポジティブに表現してください。
-※専門用語や難しい言い回しは避け、詩的すぎず、伝わる言葉で。
+▼ 出力条件：
+- 文体は敬語ではなく、親しみのある口調（例：「〜だね」「〜かも」）
+- 長すぎない（120文字以内）
+- 抽象的すぎず、伝わる具体的な言葉で
+- 少し明るく、励ますような雰囲気で
+- 占いと診断の中間のような軽やかさで
 `;
 
   try {
@@ -37,7 +39,7 @@ export default async function handler(req, res) {
         Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
       },
       body: JSON.stringify({
-        model: "gpt-4", // 必要に応じて gpt-3.5-turbo などに変更可
+        model: "gpt-4",
         messages: [{ role: "user", content: prompt }],
         max_tokens: 200,
       }),
@@ -50,7 +52,6 @@ export default async function handler(req, res) {
 
     const data = await response.json();
     const comment = data.choices?.[0]?.message?.content?.trim() || "診断コメントが生成できませんでした。";
-
     return res.status(200).json({ comment });
 
   } catch (error) {
