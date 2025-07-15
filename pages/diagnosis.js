@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useRouter } from 'next/router';
 
 export default function DiagnosisPage() {
@@ -7,7 +7,26 @@ export default function DiagnosisPage() {
   const [answers, setAnswers] = useState({});
 
   const questions = [
-    // ...（省略）同じでOK
+    {
+      id: 1,
+      question: '何かを決めるとき、あなたは？',
+      options: [
+        { label: 'まず動いてみる', layer: 'E' },
+        { label: '感情を感じて選ぶ', layer: 'V' },
+        { label: '情報を整理してから決める', layer: 'Λ' },
+        { label: 'ふと降りてきた直感で選ぶ', layer: 'Ǝ' },
+      ],
+    },
+    {
+      id: 2,
+      question: '今の自分に一番近いのは？',
+      options: [
+        { label: '突き動かされて動いている感じ', layer: 'E' },
+        { label: '人の気持ちに敏感になっている感じ', layer: 'V' },
+        { label: '頭で整理して進もうとしている感じ', layer: 'Λ' },
+        { label: 'なぜか意味もなくわかる気がする', layer: 'Ǝ' },
+      ],
+    },
   ];
 
   const handleAnswer = (layer) => {
@@ -15,7 +34,6 @@ export default function DiagnosisPage() {
     setAnswers(newAnswers);
 
     if (step + 1 >= questions.length) {
-      // 🔽 スコア計算してリダイレクト
       const score = { E: 0, V: 0, Λ: 0, Ǝ: 0 };
       Object.values(newAnswers).forEach((layer) => {
         score[layer] = (score[layer] || 0) + 1;
@@ -24,8 +42,8 @@ export default function DiagnosisPage() {
       const query = new URLSearchParams({
         E: score.E,
         V: score.V,
-        L: score['Λ'],
-        R: score['Ǝ'],
+        L: score['Λ'], // Λ → L
+        R: score['Ǝ'], // Ǝ → R
       }).toString();
 
       router.push(`/result?${query}`);
