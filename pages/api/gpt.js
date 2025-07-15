@@ -12,7 +12,7 @@ export default async function handler(req, res) {
 以下のスコアに基づいて、魂の構造的傾向とバランスについて詩的かつ洞察的なコメントを200文字以内で返答してください。
 
 スコア:
-E: ${score.E}, V: ${score.V}, Λ: ${score['Λ']}, Ǝ: ${score['Ǝ']}
+E: ${score.E}, V: ${score.V}, Λ: ${score['L']}, Ǝ: ${score['R']}
 
 ▼ 出力形式：
 - コメント本文のみ（余計な説明なし）
