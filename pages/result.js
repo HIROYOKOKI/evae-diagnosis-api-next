@@ -6,27 +6,24 @@ export default function ResultPage() {
   const [score, setScore] = useState(null);
   const [comment, setComment] = useState('');
 
-  // クエリパラメータからスコアを取得
   useEffect(() => {
     if (!router.isReady) return;
 
     const { E, V, L, R } = router.query;
-    if (E && V && L && R) {
-      const parsed = {
-        E: parseInt(E),
-        V: parseInt(V),
-        Λ: parseInt(L),
-        Ǝ: parseInt(R),
-      };
-      setScore(parsed);
-    }
-  }, [router.isReady]);
+    if ([E, V, L, R].some((v) => v === undefined)) return;
 
-  // GPTコメント取得
+    const parsed = {
+      E: parseInt(E),
+      V: parseInt(V),
+      Λ: parseInt(L),
+      Ǝ: parseInt(R),
+    };
+    setScore(parsed);
+  }, [router.isReady, router.query]);
+
   useEffect(() => {
     if (!score) return;
 
-    // 🔒 全ての値が0ならGPTに投げない
     const allZero = Object.values(score).every((v) => v === 0);
     if (allZero) {
       setComment('スコアがすべて0のため、コメントを生成できません。');
