@@ -25,7 +25,7 @@ E: ${score.E}, V: ${score.V}, Λ: ${score['L']}, Ǝ: ${score['R']}
       Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
     },
     body: JSON.stringify({
-      model: "gpt-4.1-mini",
+      model: "gpt-3.5-turbo",
       messages: [{ role: "user", content: prompt }],
       max_tokens: 150,
     }),
