@@ -72,3 +72,26 @@ export default function DiagnosisPage() {
     </div>
   );
 }
+if (step >= questions.length) {
+  // スコアを集計
+  const score = { E: 0, V: 0, Λ: 0, Ǝ: 0 };
+  Object.values(answers).forEach((layer) => {
+    score[layer] = (score[layer] || 0) + 1;
+  });
+
+  // クエリ文字列に変換（ΛとƎはURLエンコード対策で文字を置換）
+  const query = new URLSearchParams({
+  E: score.E,
+  V: score.V,
+  L: score['Λ'], // Λ → L
+  R: score['Ǝ'], // Ǝ → R
+}).toString();
+
+  // 遷移（ΛとƎはエンコードされたままでOK）
+  if (typeof window !== 'undefined') {
+    window.location.href = `/result?${query}`;
+  }
+
+  return null;
+}
+
