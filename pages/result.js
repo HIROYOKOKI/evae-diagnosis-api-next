@@ -12,16 +12,17 @@ export default function Result() {
 
     const { E, V, Λ, Ǝ } = router.query;
 
-    // すべてのレイヤーが揃っているか確認
-    if (E && V && Λ && Ǝ) {
-      const parsedScore = {
-        E: parseInt(E),
-        V: parseInt(V),
-        Λ: parseInt(Λ),
-        Ǝ: parseInt(Ǝ),
-      };
-      setScore(parsedScore);
-    }
+   const { E, V, L, R } = router.query;
+
+if (E && V && L && R) {
+  const parsedScore = {
+    E: parseInt(E),
+    V: parseInt(V),
+    Λ: parseInt(L),   // L → Λ
+    Ǝ: parseInt(R),   // R → Ǝ
+  };
+  setScore(parsedScore);
+}
   }, [router.isReady]);
 
   // GPT診断コメントを取得
