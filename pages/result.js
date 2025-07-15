@@ -35,7 +35,7 @@ export default function ResultPage() {
         const res = await fetch('/api/gpt', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(score),
+          body: JSON.stringify({ score }), // ✅ ← score を包む
         });
         const data = await res.json();
         setComment(data.comment || 'コメントが取得できませんでした');
