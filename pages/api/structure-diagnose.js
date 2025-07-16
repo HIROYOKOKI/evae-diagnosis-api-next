@@ -1,77 +1,59 @@
-import { useState } from 'react';
-import { useRouter } from 'next/router';
+// pages/api/structure-diagnose.js
 
-export default function DiagnosisPage() {
-  const router = useRouter();
-  const [step, setStep] = useState(0);
-  const [answers, setAnswers] = useState({});
+export default async function handler(req, res) {
+  if (req.method !== 'POST') {
+    return res.status(405).json({ error: 'Method not allowed. Use POST only.' });
+  }
 
-  const questions = [
-    {
-      id: 1,
-      question: '何かを決めるとき、あなたは？',
-      options: [
-        { label: 'まず動いてみる', layer: 'E' },
-        { label: '感情を感じて選ぶ', layer: 'V' },
-        { label: '情報を整理してから決める', layer: 'Λ' },
-        { label: 'ふと降りてきた直感で選ぶ', layer: 'Ǝ' },
-      ],
-    },
-    {
-      id: 2,
-      question: '今の自分に一番近いのは？',
-      options: [
-        { label: '突き動かされて動いている感じ', layer: 'E' },
-        { label: '人の気持ちに敏感になっている感じ', layer: 'V' },
-        { label: '頭で整理して進もうとしている感じ', layer: 'Λ' },
-        { label: 'なぜか意味もなくわかる気がする', layer: 'Ǝ' },
-      ],
-    },
-  ];
+  const { E, V, Λ, Ǝ } = req.body;
 
-  const handleAnswer = (layer) => {
-    const newAnswers = { ...answers, [questions[step].id]: layer };
-    setAnswers(newAnswers);
+  if (
+    typeof E !== 'number' ||
+    typeof V !== 'number' ||
+    typeof Λ !== 'number' ||
+    typeof Ǝ !== 'number'
+  ) {
+    return res.status(400).json({ error: 'スコアが不正です' });
+  }
 
-    if (step + 1 >= questions.length) {
-      const score = { E: 0, V: 0, Λ: 0, Ǝ: 0 };
-      Object.values(newAnswers).forEach((layer) => {
-        score[layer] = (score[layer] || 0) + 1;
-      });
+  const prompt = `
+あなたはソウルレイヤー構造診断AIです。
+以下の構造スコアをもとに、その人の魂の傾向をやさしく・わかりやすく診断してください。
+リトルポジティブ（少し詩的で明るい）文体で120文字以内に収めてください。
 
-      const query = new URLSearchParams({
-        E: score.E,
-        V: score.V,
-        L: score['Λ'], // Λ → L
-        R: score['Ǝ'], // Ǝ → R
-      }).toString();
+スコア:
+E: ${E}, V: ${V}, Λ: ${Λ}, Ǝ: ${Ǝ}
+`;
 
-      router.push(`/result?${query}`);
-    } else {
-      setStep(step + 1);
+  try {
+    const response = await fetch('https://api.openai.com/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
+      },
+      body: JSON.stringify({
+        model: 'gpt-4',
+        messages: [{ role: 'user', content: prompt }],
+        max_tokens: 200,
+      }),
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      return res.status(500).json({ error: `OpenAI APIエラー: ${errorData.error?.message}` });
     }
-  };
 
-  return (
-    <div style={{ padding: '2rem' }}>
-      <h1>ソウルレイヤー診断</h1>
-      <p>{questions[step].question}</p>
-      <div style={{ marginTop: '1rem' }}>
-        {questions[step].options.map((opt, i) => (
-          <button
-            key={i}
-            onClick={() => handleAnswer(opt.layer)}
-            style={{
-              margin: '0.5rem',
-              padding: '1rem',
-              fontSize: '1rem',
-              cursor: 'pointer',
-            }}
-          >
-            {opt.label}
-          </button>
-        ))}
-      </div>
-    </div>
-  );
+    const data = await response.json();
+    const comment = data?.choices?.[0]?.message?.content?.trim();
+
+    if (!comment) {
+      return res.status(500).json({ error: '診断コメントが取得できませんでした。' });
+    }
+
+    return res.status(200).json({ comment });
+  } catch (err) {
+    console.error('構造診断エラー:', err);
+    return res.status(500).json({ error: `サーバーエラー: ${err.message}` });
+  }
 }
