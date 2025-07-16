@@ -9,6 +9,9 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: 'スコアが送られていない' });
   }
 
+  // ★ ここに一時的なAPIキーを直接書く（絶対にGitにPushしないでください）
+  const OPENAI_API_KEY = 'sk-あなたのキーをここに';
+
   const prompt = `
 あなたはリトルポジティブな性格診断AIです。
 
@@ -31,7 +34,7 @@ E: ${score.E}, V: ${score.V}, Λ: ${score["Λ"]}, Ǝ: ${score["Ǝ"]}
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
+        Authorization: `Bearer ${OPENAI_API_KEY}`, // ← process.env ではなく直接
       },
       body: JSON.stringify({
         model: "gpt-4",
@@ -42,6 +45,7 @@ E: ${score.E}, V: ${score.V}, Λ: ${score["Λ"]}, Ǝ: ${score["Ǝ"]}
 
     if (!response.ok) {
       const error = await response.json();
+      console.error("OpenAI API Error:", error);
       return res.status(500).json({ error: `OpenAI APIエラー: ${error.error?.message || '不明なエラー'}` });
     }
 
