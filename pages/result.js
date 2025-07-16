@@ -10,7 +10,9 @@ export default function ResultPage() {
     if (!router.isReady) return;
 
     const { E, V, L, R } = router.query;
-    if ([E, V, L, R].some((v) => v === undefined)) return;
+
+    const allDefined = [E, V, L, R].every((v) => v !== undefined && !isNaN(parseInt(v)));
+    if (!allDefined) return;
 
     const parsed = {
       E: parseInt(E),
@@ -18,7 +20,9 @@ export default function ResultPage() {
       Λ: parseInt(L),
       Ǝ: parseInt(R),
     };
+
     setScore(parsed);
+    console.log('✅ スコア取得:', parsed);
   }, [router.isReady, router.query]);
 
   useEffect(() => {
@@ -35,9 +39,11 @@ export default function ResultPage() {
         const res = await fetch('/api/gpt', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ score }), // ✅ ← score を包む
+          body: JSON.stringify({ score }),
         });
+
         const data = await res.json();
+        console.log('🧠 GPTレスポンス:', data);
         setComment(data.comment || 'コメントが取得できませんでした');
       } catch (err) {
         setComment('エラーによりコメント生成に失敗しました');
