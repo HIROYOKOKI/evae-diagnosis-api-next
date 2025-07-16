@@ -31,32 +31,30 @@ E: ${score.E}, V: ${score.V}, Λ: ${score["Λ"]}, Ǝ: ${score["Ǝ"]}
 
   try {
     const response = await fetch("https://api.openai.com/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${OPENAI_API_KEY}`, // ← process.env ではなく直接
-      },
-      body: JSON.stringify({
-        model: "gpt-4",
-        messages: [{ role: "user", content: prompt }],
-        max_tokens: 150,
-      }),
-    });
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${OPENAI_API_KEY}`,
+  },
+  body: JSON.stringify({
+    model: "gpt-4",
+    messages: [{ role: "user", content: prompt }],
+    max_tokens: 150,
+  }),
+});
 
-    if (!response.ok) {
-      const error = await response.json();
-      console.error("OpenAI API Error:", error);
-      return res.status(500).json({ error: `OpenAI APIエラー: ${error.error?.message || '不明なエラー'}` });
-    }
+const data = await response.json();
+console.log("🧠 OpenAI API Response:", JSON.stringify(data, null, 2));
 
-    const data = await response.json();
-    const comment = data?.choices?.[0]?.message?.content?.trim();
+const comment = data?.choices?.[0]?.message?.content?.trim();
 
-    if (!comment) {
-      return res.status(500).json({ error: 'コメントが取得できませんでした。' });
-    }
+if (!comment) {
+  console.error("⚠️ GPTからコメントが返ってこなかったデータ:", data);
+  return res.status(500).json({ error: 'コメントが取得できませんでした。' });
+}
 
-    return res.status(200).json({ comment });
+return res.status(200).json({ comment });
+
   } catch (err) {
     console.error('属性診断エラー:', err);
     return res.status(500).json({ error: `サーバーエラー: ${err.message}` });
