@@ -2,33 +2,33 @@
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
-    return res.status(405).json({ error: 'Method not allowed' });
+    return res.status(405).json({ error: 'メソッドは許可されていません' });
   }
 
-  try {
-    const { score } = req.body;
+  const { score } = req.body;
 
-    if (!score) {
-      return res.status(400).json({ error: 'スコアが送られていません' });
-    }
+  if (!score) {
+    return res.status(400).json({ error: 'スコアが送られていない' });
+  }
 
-    const prompt = `
-const prompt = `
-あなたはソウルレイヤー構造診断AIです。
+  const prompt = `
+あなたはリトルポジティブな性格診断AIです。
 
-以下の構造スコアをもとに、その人の傾向や個性を【わかりやすく・やさしい日本語】で解説してください。
-たとえば、どんな考え方をする人か・どんな行動傾向か・どこに強みがあるかを自然に伝えてください。
-占いや心理テストのように、少し励ます雰囲気も加えてください。
+以下のスコア（E, V, Λ, Ǝ）からその人の気質や傾向を想像し、
+本人が「なるほど」「当たってるかも」と思えるようなコメントを
+やさしい日本語で返してください。
 
-文体は：
-- 詩的すぎず
-- 120文字以内
-- 抽象ではなく“伝わる言葉”で
+▼ 出力条件：
+- わかりやすく、日常語で
+- 少し励ますトーン
+- 占い風だが詩的すぎない
+- 文章は120文字以内に収めてください
 
 スコア:
-E: ${E}, V: ${V}, Λ: ${Λ}, Ǝ: ${Ǝ}
+E: ${score.E}, V: ${score.V}, Λ: ${score["Λ"]}, Ǝ: ${score["Ǝ"]}
 `;
 
+  try {
     const response = await fetch("https://api.openai.com/v1/chat/completions", {
       method: "POST",
       headers: {
@@ -43,17 +43,20 @@ E: ${E}, V: ${V}, Λ: ${Λ}, Ǝ: ${Ǝ}
     });
 
     if (!response.ok) {
-      const errorData = await response.json();
-      return res.status(500).json({ comment: `OpenAI APIエラー: ${errorData.error?.message || '不明なエラー'}` });
+      const error = await response.json();
+      return res.status(500).json({ error: `OpenAI APIエラー: ${error.error?.message || '不明なエラー'}` });
     }
 
     const data = await response.json();
-    const content = data.choices?.[0]?.message?.content ?? "コメント生成に失敗しました";
+    const comment = data?.choices?.[0]?.message?.content?.trim();
 
-    res.status(200).json({ comment: content });
+    if (!comment) {
+      return res.status(500).json({ error: 'コメントが取得できませんでした。' });
+    }
 
+    return res.status(200).json({ comment });
   } catch (err) {
-    console.error("API処理中のエラー:", err);
-    res.status(500).json({ comment: `サーバーエラー: ${err.message}` });
+    console.error('属性診断エラー:', err);
+    return res.status(500).json({ error: `サーバーエラー: ${err.message}` });
   }
 }
