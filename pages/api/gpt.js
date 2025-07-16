@@ -25,7 +25,7 @@ export default async function handler(req, res) {
 - 文章は120文字以内に収めてください
 
 スコア:
-E: ${score.E}, V: ${score.V}, Λ: ${score["Λ"]}, Ǝ: ${score["Ǝ"]}
+E: ${score.E}, V: ${score.V}, Λ: ${score["L"]}, Ǝ: ${score["R"]}
 `;
 
   try {
