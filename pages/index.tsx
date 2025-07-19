@@ -1,4 +1,4 @@
-// ファイルパス: /pages/index.tsx
+// ファイル: pages/index.tsx
 
 export default function Home() {
   return (
