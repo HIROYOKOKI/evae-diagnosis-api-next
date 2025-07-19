@@ -1,8 +1,25 @@
+/* ---------------------------
+   Tailwind base utilities
+---------------------------- */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-html, body {
-  @apply bg-white text-gray-800;
+/* ---------------------------
+   Custom global styles
+---------------------------- */
+html,
+body {
+  @apply bg-white text-gray-800 font-sans antialiased;
   font-family: 'Noto Sans JP', sans-serif;
+}
+
+/* ---------------------------
+   Other global resets
+---------------------------- */
+* {
+  box-sizing: border-box;
+}
+a {
+  @apply text-blue-500 hover:underline;
 }
