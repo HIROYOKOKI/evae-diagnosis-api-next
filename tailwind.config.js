@@ -7,15 +7,13 @@ module.exports = {
     './styles/**/*.{css}',
   ],
   safelist: [
-    'bg-white',
-    'animate-fadeInUp',
-    'animate-wiggle',
-    'animate-slideInRight',
-    'animate-tracking-in-expand',
-    'hover:animate-wiggle',
-    'delay-200',
-    'delay-400',
-  ],
+  'animate-fadeInUp',
+  'delay-[200ms]',
+  'delay-[400ms]',
+  'text-green-500',
+  'text-3xl',
+  'font-bold',
+]
   theme: {
     extend: {
       colors: {
