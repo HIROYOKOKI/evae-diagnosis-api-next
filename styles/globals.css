@@ -1,49 +1,19 @@
-/* -----------------------------
-   Tailwind Base Layer
------------------------------ */
+/* Tailwind base utilities */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* -----------------------------
-   Custom Global Styles
------------------------------ */
-html, body {
+/* Global Styles */
+html,
+body {
   @apply bg-white text-gray-800 font-sans antialiased;
   font-family: 'Noto Sans JP', sans-serif;
-  line-height: 1.6;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  scroll-behavior: smooth;
-}
-
-/* -----------------------------
-   Layout & Reset Utilities
------------------------------ */
-*, *::before, *::after {
-  box-sizing: border-box;
-}
-
-/* -----------------------------
-   Typography Tweaks
------------------------------ */
-h1, h2, h3, h4, h5, h6 {
-  @apply font-bold text-gray-900;
-}
-
-p {
-  @apply mb-4;
 }
 
 a {
-  @apply text-blue-600 hover:underline;
+  @apply text-blue-500 hover:underline;
 }
 
-/* -----------------------------
-   Form Elements (optional)
------------------------------ */
-input, textarea, select, button {
-  @apply border border-gray-300 rounded px-3 py-2;
-  @apply focus:outline-none focus:ring-2 focus:ring-blue-400;
-  font-family: inherit;
+* {
+  box-sizing: border-box;
 }
