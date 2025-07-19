@@ -1,11 +1,10 @@
 module.exports = {
   content: [
-    './pages/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './app/**/*.{js,ts,jsx,tsx}',
-    './styles/**/*.{css}', // ✅ これは OK
-    './public/**/*.html',  // ✅ ← これを追加して！
-  ],
+  './pages/**/*.{js,ts,jsx,tsx}',
+  './components/**/*.{js,ts,jsx,tsx}',
+  './app/**/*.{js,ts,jsx,tsx}',
+  './styles/**/*.{css}',             // ✅ ← これが必要！
+],
   theme: {
     extend: {
       colors: {
