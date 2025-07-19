@@ -1,9 +1,10 @@
+/** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
     './pages/**/*.{js,ts,jsx,tsx}',
     './components/**/*.{js,ts,jsx,tsx}',
     './app/**/*.{js,ts,jsx,tsx}',
-    './styles/**/*.css', // ✅ これが必要！
+    './styles/**/*.{css}',
   ],
   theme: {
     extend: {
@@ -17,9 +18,9 @@ module.exports = {
       },
     },
   },
-  plugins: [],
   future: {
     respectDefaultRingColorOpacity: false,
     respectDefaultOpacity: false,
   },
+  plugins: [],
 };
