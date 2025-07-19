@@ -51,3 +51,11 @@ module.exports = {
   },
   plugins: [],
 };
+// tailwind.config.js のルート階層に追記
+safelist: [
+  'animate-fadeInUp',
+  'animate-wiggle',
+  'animate-slideInRight',
+  'animate-tracking-in-expand',
+  'hover:animate-wiggle',
+],
