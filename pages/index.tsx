@@ -1,8 +1,9 @@
-// pages/index.tsx
 export default function Home() {
   return (
-    <div>
-      <p>✅ 出た！最小ビルド成功！</p>
+    <div className="p-8">
+      <h1 className="text-3xl font-bold text-green-500">
+        🌟 出た！！！！これは index.tsx！
+      </h1>
     </div>
   );
 }
