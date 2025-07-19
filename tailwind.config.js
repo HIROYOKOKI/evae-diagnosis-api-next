@@ -13,6 +13,8 @@ module.exports = {
     'animate-slideInRight',
     'animate-tracking-in-expand',
     'hover:animate-wiggle',
+    'delay-200',
+    'delay-400',
   ],
   theme: {
     extend: {
