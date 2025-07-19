@@ -1,5 +1,3 @@
-// pages/daily.js
-
 import { useEffect, useState } from 'react';
 
 export default function Daily() {
@@ -7,24 +5,26 @@ export default function Daily() {
   const [selected, setSelected] = useState(null);
   const [comment, setComment] = useState('');
 
+  // 設問取得
+  const fetchQuestion = async () => {
+    const res = await fetch('/api/daily-question');
+    const data = await res.json();
+    setQuestionText(data.question);
+  };
+
   useEffect(() => {
-    fetch('/api/daily-question')
-      .then(res => res.json())
-      .then(data => {
-        setQuestionText(data.question);
-      });
+    fetchQuestion();
   }, []);
 
+  // 構造タイプ選択＆GPTコメント取得
   const handleSelect = async (type) => {
     setSelected(type);
-    setComment(''); // 既存コメントクリア
+    setComment('');
 
     try {
       const res = await fetch('/api/gpt-comment', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ type }),
       });
 
@@ -40,12 +40,21 @@ export default function Daily() {
     }
   };
 
+  // 設問再取得
+  const handleReobserve = () => {
+    setSelected(null);
+    setComment('');
+    setQuestionText('');
+    fetchQuestion();
+  };
+
+  // 選択肢レンダリング
   const renderChoices = () => {
     const matches = questionText.match(/A\d:\s.*?\（.）/g);
     if (!matches) return null;
 
     return matches.map((choice, index) => {
-      const type = choice.match(/\（(.)）/)?.[1]; // 構造タイプ抽出（E/V/Λ/Ǝ）
+      const type = choice.match(/\（(.)）/)?.[1]; // E/V/Λ/Ǝ
       return (
         <button
           key={index}
@@ -84,6 +93,21 @@ export default function Daily() {
           )}
         </>
       )}
+
+      <button
+        onClick={handleReobserve}
+        style={{
+          marginTop: '2.5rem',
+          padding: '0.6rem 1.2rem',
+          borderRadius: '8px',
+          border: '1px solid #0c0f3a',
+          background: 'transparent',
+          color: '#0c0f3a',
+          cursor: 'pointer',
+        }}
+      >
+        🔁 再観測して別の設問を見る
+      </button>
     </div>
   );
 }
