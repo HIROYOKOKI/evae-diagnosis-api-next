@@ -8,34 +8,29 @@ export default function Daily() {
   const [comment, setComment] = useState('');
   const [isAnswered, setIsAnswered] = useState(false);
 
-  const today = new Date().toISOString().slice(0, 10); // "2025-07-19"
+  const today = new Date().toISOString().slice(0, 10);
 
-  // 設問取得関数
   const fetchQuestion = async () => {
     const res = await fetch('/api/daily-question');
     const data = await res.json();
     setQuestionText(data.question);
   };
 
-  // 初回チェック：診断済みならロック、それ以外は設問取得
   useEffect(() => {
     const answered = localStorage.getItem(`evae-daily-${today}`);
     if (answered) {
       setIsAnswered(true);
-      setSelected(answered); // 前回選んだタイプも表示
+      setSelected(answered);
     } else {
       fetchQuestion();
     }
   }, []);
 
-  // 回答選択処理
   const handleSelect = async (type) => {
     setSelected(type);
     setComment('');
-
-    // 保存
     localStorage.setItem(`evae-daily-${today}`, type);
-    setIsAnswered(true); // ロックON
+    setIsAnswered(true);
 
     try {
       const res = await fetch('/api/gpt-comment', {
@@ -45,27 +40,21 @@ export default function Daily() {
       });
 
       const data = await res.json();
-      if (data.comment) {
-        setComment(data.comment);
-      } else {
-        setComment('コメントの取得に失敗しました。');
-      }
+      setComment(data.comment || 'コメントの取得に失敗しました。');
     } catch (error) {
       console.error('GPT fetch error:', error);
       setComment('コメント取得エラー');
     }
   };
 
-  // 設問再取得
   const handleReobserve = () => {
-    if (isAnswered) return; // ロック中は再観測不可
+    if (isAnswered) return;
     setSelected(null);
     setComment('');
     setQuestionText('');
     fetchQuestion();
   };
 
-  // 選択肢表示
   const renderChoices = () => {
     const matches = questionText.match(/A\d:\s.*?\（.）/g);
     if (!matches) return null;
@@ -76,16 +65,7 @@ export default function Daily() {
         <button
           key={index}
           onClick={() => handleSelect(type)}
-          style={{
-            display: 'block',
-            margin: '0.5rem 0',
-            padding: '0.8rem',
-            borderRadius: '8px',
-            background: '#0c0f3a',
-            color: '#fff',
-            border: 'none',
-            cursor: 'pointer',
-          }}
+          className="block w-full py-3 px-4 rounded-xl bg-indigo-600 text-white hover:bg-indigo-700 transition"
         >
           {choice}
         </button>
@@ -94,46 +74,52 @@ export default function Daily() {
   };
 
   return (
-    <div style={{ padding: '2rem', fontFamily: 'sans-serif' }}>
-      <h1>🌙 今日のソウルレイヤー診断</h1>
+    <div className="min-h-screen bg-gradient-to-b from-indigo-50 to-white px-6 py-10 font-sans">
+      <div className="max-w-xl mx-auto bg-white shadow-xl rounded-2xl p-6">
+        <h1 className="text-2xl font-bold text-center text-indigo-800 mb-6">
+          🌙 今日のソウルレイヤー診断
+        </h1>
 
-      {isAnswered ? (
-        <div>
-          <p>✅ 今日はすでに診断済みです。</p>
-          <p>あなたの選んだタイプ：<strong>{selected}</strong></p>
+        {isAnswered ? (
+          <div className="text-center space-y-2">
+            <p className="text-green-600 font-semibold">✅ 今日はすでに診断済みです。</p>
+            <p>あなたの選んだタイプ：<strong>{selected}</strong></p>
+          </div>
+        ) : (
+          <>
+            <p className="whitespace-pre-line mb-4 text-gray-800">{questionText}</p>
+
+            {!selected && (
+              <div className="space-y-3">
+                {renderChoices()}
+              </div>
+            )}
+
+            {selected && (
+              <div className="text-center mt-6 space-y-2">
+                <p>あなたが選んだのは：<strong>{selected}</strong> タイプです。</p>
+                {comment && (
+                  <p className="italic text-indigo-700">🪞 {comment}</p>
+                )}
+              </div>
+            )}
+          </>
+        )}
+
+        <div className="mt-8 text-center">
+          <button
+            onClick={handleReobserve}
+            disabled={isAnswered}
+            className={`px-4 py-2 rounded-lg border transition
+              ${isAnswered
+                ? 'bg-gray-200 text-gray-500 cursor-not-allowed'
+                : 'bg-white text-indigo-700 border-indigo-500 hover:bg-indigo-50'}
+            `}
+          >
+            🔁 再観測して別の設問を見る
+          </button>
         </div>
-      ) : (
-        <>
-          <div style={{ whiteSpace: 'pre-line', marginBottom: '1.5rem' }}>{questionText}</div>
-          {!selected && renderChoices()}
-          {selected && (
-            <>
-              <p>あなたが選んだのは：<strong>{selected}</strong> タイプです。</p>
-              {comment && (
-                <p style={{ marginTop: '1.5rem', fontStyle: 'italic', color: '#444' }}>
-                  🪞 {comment}
-                </p>
-              )}
-            </>
-          )}
-        </>
-      )}
-
-      <button
-        onClick={handleReobserve}
-        disabled={isAnswered}
-        style={{
-          marginTop: '2.5rem',
-          padding: '0.6rem 1.2rem',
-          borderRadius: '8px',
-          border: '1px solid #0c0f3a',
-          background: isAnswered ? '#ccc' : 'transparent',
-          color: isAnswered ? '#777' : '#0c0f3a',
-          cursor: isAnswered ? 'not-allowed' : 'pointer',
-        }}
-      >
-        🔁 再観測して別の設問を見る
-      </button>
+      </div>
     </div>
   );
 }
