@@ -1,10 +1,10 @@
 module.exports = {
   content: [
-  './pages/**/*.{js,ts,jsx,tsx}',
-  './components/**/*.{js,ts,jsx,tsx}',
-  './app/**/*.{js,ts,jsx,tsx}',
-  './styles/**/*.{css}',             // ✅ ← これが必要！
-],
+    './pages/**/*.{js,ts,jsx,tsx}',
+    './components/**/*.{js,ts,jsx,tsx}',
+    './app/**/*.{js,ts,jsx,tsx}',
+    './styles/**/*.css', // ✅ これが必要！
+  ],
   theme: {
     extend: {
       colors: {
@@ -18,4 +18,8 @@ module.exports = {
     },
   },
   plugins: [],
-}
+  future: {
+    respectDefaultRingColorOpacity: false,
+    respectDefaultOpacity: false,
+  },
+};
