@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 export default function Daily() {
   const [questionText, setQuestionText] = useState('');
   const [selected, setSelected] = useState(null);
+  const [comment, setComment] = useState('');
 
   useEffect(() => {
     fetch('/api/daily-question')
@@ -14,9 +15,29 @@ export default function Daily() {
       });
   }, []);
 
-  const handleSelect = (choice) => {
-    setSelected(choice);
-    console.log('選択された構造タイプ:', choice);
+  const handleSelect = async (type) => {
+    setSelected(type);
+    setComment(''); // 既存コメントクリア
+
+    try {
+      const res = await fetch('/api/gpt-comment', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ type }),
+      });
+
+      const data = await res.json();
+      if (data.comment) {
+        setComment(data.comment);
+      } else {
+        setComment('コメントの取得に失敗しました。');
+      }
+    } catch (error) {
+      console.error('GPT fetch error:', error);
+      setComment('コメント取得エラー');
+    }
   };
 
   const renderChoices = () => {
@@ -52,8 +73,16 @@ export default function Daily() {
       <div style={{ whiteSpace: 'pre-line', marginBottom: '1.5rem' }}>{questionText}</div>
 
       {!selected && renderChoices()}
+
       {selected && (
-        <p>あなたが選んだのは：<strong>{selected}</strong> タイプです。</p>
+        <>
+          <p>あなたが選んだのは：<strong>{selected}</strong> タイプです。</p>
+          {comment && (
+            <p style={{ marginTop: '1.5rem', fontStyle: 'italic', color: '#444' }}>
+              🪞 {comment}
+            </p>
+          )}
+        </>
       )}
     </div>
   );
