@@ -1,10 +1,10 @@
-// tailwind.config.js
 module.exports = {
   content: [
     './pages/**/*.{js,ts,jsx,tsx}',
     './components/**/*.{js,ts,jsx,tsx}',
     './app/**/*.{js,ts,jsx,tsx}',
-    './styles/**/*.{css}', // これもOK
+    './styles/**/*.{css}', // ✅ これは OK
+    './public/**/*.html',  // ✅ ← これを追加して！
   ],
   theme: {
     extend: {
@@ -19,4 +19,4 @@ module.exports = {
     },
   },
   plugins: [],
-};
+}
