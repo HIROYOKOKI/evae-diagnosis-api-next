@@ -1,0 +1,7 @@
+{
+  "build": {
+    "env": {
+      "NEXT_DISABLE_FILE_SYSTEM_CACHE": "true"
+    }
+  }
+}
