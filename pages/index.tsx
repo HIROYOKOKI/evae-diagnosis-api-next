@@ -4,7 +4,7 @@ export default function Home() {
       <h1 className="text-4xl font-bold text-green-600 animate-fadeInUp mb-4">
         🌱 やっと出た！！！！！！！！！
       </h1>
-      <p className="text-lg text-gray-700 animate-fadeInUp delay-200">
+      <p className="text-lg text-gray-700 animate-fadeInUp delay-[200ms]">
         アニメーションが効いてます。
       </p>
     </div>
