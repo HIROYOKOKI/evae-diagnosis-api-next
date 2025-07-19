@@ -1,19 +1,12 @@
-/* Tailwind base utilities */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Global Styles */
-html,
-body {
-  @apply bg-white text-gray-800 font-sans antialiased;
+/* ✅ ここはもう普通のCSSで背景指定 */
+html, body {
+  background-color: white;        /* ← bg-white 相当 */
+  color: #1f2937;                 /* ← text-gray-800 相当 */
   font-family: 'Noto Sans JP', sans-serif;
-}
-
-a {
-  @apply text-blue-500 hover:underline;
-}
-
-* {
-  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
