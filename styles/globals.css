@@ -10,3 +10,26 @@ html, body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+/* ✅ Tailwindにカスタムアニメーションのclass名を登録する */
+@layer utilities {
+  .animate-fadeInUp {
+    animation: fadeInUp 0.8s ease-out forwards;
+  }
+
+  .animate-slideInRight {
+    animation: slideInRight 0.6s ease-out forwards;
+  }
+
+  .animate-wiggle {
+    animation: wiggle 0.4s ease-in-out infinite;
+  }
+
+  .delay-\[200ms\] {
+    animation-delay: 0.2s;
+  }
+
+  .delay-\[400ms\] {
+    animation-delay: 0.4s;
+  }
+}
