@@ -11,12 +11,12 @@ export default function Daily() {
       </p>
 
       <div className="space-y-4 max-w-md mx-auto">
-        <button className="block w-full border border-gray-300 bg-white py-3 px-6 rounded-lg shadow-sm hover:border-evæ-e">
-          静寂
-        </button>
-        <button className="block w-full border border-gray-300 bg-white py-3 px-6 rounded-lg shadow-sm hover:border-evæ-v">
-          衝動
-        </button>
+       <button className="block w-full border border-gray-300 bg-white py-3 px-6 rounded-lg shadow-sm hover:border-evae-e">
+  静寂
+</button>
+<button className="block w-full border border-gray-300 bg-white py-3 px-6 rounded-lg shadow-sm hover:border-evae-v">
+  衝動
+</button>
       </div>
 
       {/* 👇 ルネアの出現ポイント */}
