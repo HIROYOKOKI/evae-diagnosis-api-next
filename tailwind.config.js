@@ -7,13 +7,13 @@ module.exports = {
     './styles/**/*.{css}',
   ],
   safelist: [
-  'animate-fadeInUp',
-  'delay-[200ms]',
-  'delay-[400ms]',
-  'text-green-500',
-  'text-3xl',
-  'font-bold',
-]
+    'animate-fadeInUp',
+    'delay-[200ms]',
+    'delay-[400ms]',
+    'text-green-500',
+    'text-3xl',
+    'font-bold',
+  ], // ← ✅ カンマ追加
   theme: {
     extend: {
       colors: {
