@@ -7,16 +7,12 @@ module.exports = {
     './styles/**/*.{css}',
   ],
   safelist: [
-  {
-    pattern: /animate-.*/,
-  },
-  {
-    pattern: /delay-.*/,
-  },
-  'text-green-500',
-  'text-3xl',
-  'font-bold',
-], // ← ✅ カンマ追加
+    { pattern: /animate-.*/ },
+    { pattern: /delay-.*/ },
+    'text-green-500',
+    'text-3xl',
+    'font-bold',
+  ],
   theme: {
     extend: {
       colors: {
@@ -53,10 +49,6 @@ module.exports = {
         'tracking-in-expand': 'trackingInExpand 0.8s ease-out forwards',
       },
     },
-  },
-  future: {
-    respectDefaultRingColorOpacity: false,
-    respectDefaultOpacity: false,
   },
   plugins: [],
 };
