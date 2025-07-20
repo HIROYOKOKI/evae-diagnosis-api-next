@@ -1,3 +1,4 @@
+// pages/daily.tsx
 export default function Daily() {
   return (
     <div className="relative p-8 bg-[#f7f7f9] min-h-screen text-center">
