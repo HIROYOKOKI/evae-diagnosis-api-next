@@ -32,9 +32,10 @@ E: ${E}, V: ${V}, Λ: ${Λ}, Ǝ: ${Ǝ}`;
       messages: [{ role: 'user', content: prompt }],
     });
 
-    const message = completion.choices[0].message.content;
-    const [commentLine, adviceLine] = (message || '').split('
-').map(s => s.trim());
+   const message = completion.choices[0].message.content || '';
+const lines = message.split('\n');
+const commentLine = lines[0]?.trim() || '';
+const adviceLine = lines[1]?.trim() || '';
 return res.status(200).json({ comment: commentLine, advice: adviceLine });
   } catch (error) {
     return res.status(500).json({ error: 'Failed to generate comment' });
