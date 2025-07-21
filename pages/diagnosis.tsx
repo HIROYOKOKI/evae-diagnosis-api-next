@@ -28,9 +28,13 @@ export default function DiagnosisPage() {
 
   if (finished) {
     return (
-      <div className="p-6 max-w-xl mx-auto">
-        <h2 className="text-xl font-bold mb-4">診断結果</h2>
-        <pre className="bg-gray-100 p-4 rounded">{JSON.stringify(score, null, 2)}</pre>
+      <div className="min-h-screen flex items-center justify-center bg-white px-4 py-12">
+        <div className="max-w-xl w-full text-center">
+          <h2 className="text-2xl font-bold mb-4 tracking-tight">診断結果</h2>
+          <pre className="bg-gray-100 p-6 rounded-xl text-left text-sm font-mono shadow-inner">
+            {JSON.stringify(score, null, 2)}
+          </pre>
+        </div>
       </div>
     );
   }
@@ -38,23 +42,28 @@ export default function DiagnosisPage() {
   const q = questions[current];
 
   return (
-    <div className="p-6 max-w-xl mx-auto">
-      <div className="mb-6">
-        <p className="text-sm text-gray-500">{q.category}</p>
-        <h2 className="text-lg font-semibold mb-4">Q{q.id}. {q.text}</h2>
-        <div className="space-y-3">
-          {q.options.map((opt, index) => (
-            <button
-              key={index}
-              onClick={() => handleSelect(opt.structure)}
-              className="block w-full px-4 py-3 border rounded-lg text-left hover:bg-gray-50 transition"
-            >
-              {opt.text}
-            </button>
-          ))}
+    <div className="min-h-screen flex items-center justify-center bg-white px-4 py-12">
+      <div className="max-w-xl w-full">
+        <div className="mb-8">
+          <h2 className="text-xl font-semibold mb-6 leading-relaxed tracking-tight">
+            Q{q.id}. {q.text}
+          </h2>
+          <div className="space-y-4">
+            {q.options.map((opt, index) => (
+              <button
+                key={index}
+                onClick={() => handleSelect(opt.structure)}
+                className="block w-full px-6 py-4 bg-white border border-gray-300 rounded-2xl text-left shadow-sm hover:bg-gray-50 transition font-medium"
+              >
+                {opt.text}
+              </button>
+            ))}
+          </div>
+        </div>
+        <div className="text-sm text-gray-400 text-right">
+          {current + 1} / {questions.length}
         </div>
       </div>
-      <p className="text-sm text-gray-400 text-right">{current + 1} / {questions.length}</p>
     </div>
   );
 }
