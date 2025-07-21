@@ -1,4 +1,4 @@
-// components/DiagnosisResult.tsx
+// ルネア診断コメントの表示を含む診断結果パート（diagnosis.tsx内のfinished部分）
 
 import { useState, useEffect } from 'react';
 
@@ -31,6 +31,9 @@ export default function DiagnosisResult({ score }: { score: { E: number, V: numb
     <div className="min-h-screen flex items-center justify-center bg-white px-6 py-12">
       <div className="max-w-xl w-full text-center space-y-8">
         <h2 className="text-2xl font-bold tracking-tight">診断結果</h2>
+
+<p className="text-sm text-gray-500">EVΛƎ：未確定の未来の構造傾向</p>
+<p className="text-sm text-gray-500">EΛVƎ：確定した現実の構造重心</p>
 
         <div className="text-left bg-indigo-50 text-gray-800 px-6 py-4 rounded-xl shadow-inner leading-relaxed">
           <p className="mb-2 font-semibold text-sm text-indigo-700">ルネアより構造観測メッセージ：</p>
