@@ -54,9 +54,17 @@ export default function DiagnosisPage() {
         <div className="space-y-6">
           <AnimatePresence mode="wait">
             {q.options.map((opt, index) => (
-              <motion.button$1>
-  <span className=\"inline-block mr-2\">🔘</span>
-  <span>$3</span>
+              <motion.button
+  key={index}
+  onClick={() => handleSelect(opt.structure)}
+  initial={{ opacity: 0, y: 10 }}
+  animate={{ opacity: 1, y: 0 }}
+  exit={{ opacity: 0, scale: 1.05, filter: 'brightness(1.3)' }}
+  transition={{ duration: 0.3 }}
+  className="block w-2/3 max-w-sm mx-auto px-5 py-4 bg-white border border-gray-300 rounded-xl shadow-md hover:shadow-lg hover:bg-gray-100 transition-all duration-200 transform hover:scale-[1.01] active:scale-95 text-[16px] text-gray-800 text-left leading-snug"
+>
+  <span className="inline-block mr-2">🔘</span>
+  <span>{opt.text}</span>
 </motion.button>
             ))}
           </AnimatePresence>
