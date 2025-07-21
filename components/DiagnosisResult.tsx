@@ -50,7 +50,7 @@ export default function DiagnosisResult({ score }: { score: { E: number, V: numb
 
         {/* 表示内容 */}
         <p className="text-sm text-gray-500">
-          あなたの構造は「{score.Λ > score.E && score.Λ > score.V ? 'EΛVƎ' : 'EVΛƎ'}」：
+          あなたの意識は「{score.Λ > score.E && score.Λ > score.V ? 'EΛVƎ' : 'EVΛƎ'}」：
           {score.Λ > score.E && score.Λ > score.V ? '確定した現実の構造重心' : '未確定の未来の構造傾向'} に傾いています。
         </p>
 
