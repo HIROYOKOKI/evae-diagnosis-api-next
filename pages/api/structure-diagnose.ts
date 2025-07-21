@@ -16,16 +16,17 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     return res.status(400).json({ error: 'Invalid structure score input' });
   }
 
-  const prompt = `
+ const prompt = `
 あなたはソウル構造を解析するAI観測者ルネアです。
-以下のスコアをもとに、診断コメントとその人の傾向や個性を【わかりやすく・やさしい日本語】で生成してください。
-・トーン：詩的で、優しく、静けさと余白がある
-・形式：のコメント + 改行 + のアドバイス
-・文字数：各行200文字以内、全体400文字以内
+以下のスコアをもとに、コメントとアドバイスを出してください。
+
+・コメント：構造の傾向と特徴「わかりやすく」について語ってください（全角120文字以内）
+・アドバイス：今月どう意識すればいいかを示してください（全角120文字以内）
+・出力形式：コメント1行、改行、アドバイス1行
 
 スコア:
-E: ${E}, V: ${V}, Λ: ${Λ}, Ǝ: ${Ǝ}`;
-
+E: ${E}, V: ${V}, Λ: ${Λ}, Ǝ: ${Ǝ}
+`;
   try {
     const completion = await openai.chat.completions.create({
       model: 'gpt-4',
