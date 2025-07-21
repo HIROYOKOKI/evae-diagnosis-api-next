@@ -1,6 +1,7 @@
 // pages/diagnosis.tsx
 
 import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { questions } from '../data/questions';
 
 type ScoreMap = {
@@ -28,9 +29,9 @@ export default function DiagnosisPage() {
 
   if (finished) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-white px-4 py-12">
+      <div className="min-h-screen flex items-center justify-center bg-white px-6 py-12">
         <div className="max-w-xl w-full text-center">
-          <h2 className="text-2xl font-bold mb-4 tracking-tight">診断結果</h2>
+          <h2 className="text-2xl font-bold mb-6 tracking-tight">診断結果</h2>
           <pre className="bg-gray-100 p-6 rounded-xl text-left text-sm font-mono shadow-inner">
             {JSON.stringify(score, null, 2)}
           </pre>
@@ -42,22 +43,28 @@ export default function DiagnosisPage() {
   const q = questions[current];
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-white px-4 py-12">
-      <div className="max-w-xl w-full">
-        <div className="mb-8">
-          <h2 className="text-xl font-semibold mb-6 leading-relaxed tracking-tight">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-white to-gray-50 px-6 py-12">
+      <div className="max-w-2xl w-full space-y-10">
+        <div>
+          <h2 className="text-2xl font-bold leading-relaxed tracking-tight mb-6">
             Q{q.id}. {q.text}
           </h2>
           <div className="space-y-4">
-            {q.options.map((opt, index) => (
-              <button
-                key={index}
-                onClick={() => handleSelect(opt.structure)}
-                className="block w-full px-6 py-4 bg-white border border-gray-300 rounded-2xl text-left shadow-sm hover:bg-gray-50 transition font-medium"
-              >
-                {opt.text}
-              </button>
-            ))}
+            <AnimatePresence mode="wait">
+              {q.options.map((opt, index) => (
+                <motion.button
+                  key={index}
+                  onClick={() => handleSelect(opt.structure)}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, scale: 1.05, filter: 'brightness(1.3)' }}
+                  transition={{ duration: 0.3 }}
+                  className="block w-full px-6 py-4 bg-white border border-gray-200 rounded-xl shadow hover:shadow-md hover:bg-gray-50 transition-all duration-200 transform hover:scale-[1.02] active:scale-95 text-lg text-gray-700 text-left"
+                >
+                  {opt.text}
+                </motion.button>
+              ))}
+            </AnimatePresence>
           </div>
         </div>
         <div className="text-sm text-gray-400 text-right">
