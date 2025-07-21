@@ -17,7 +17,7 @@ export default function DiagnosisResult({ score }: { score: { E: number, V: numb
         });
         const data = await res.json();
         setComment(data.comment);
-        setAdvice(data.advice);
+        setAdvice(data.advice || 'うまく言えないけど、今はまずゆっくり深呼吸して、少し笑ってみようか。')
       } catch (err) {
         setComment('診断コメントの取得に失敗しました。');
       } finally {
