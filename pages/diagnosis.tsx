@@ -44,7 +44,7 @@ export default function DiagnosisPage() {
   const q = questions[current];
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-white to-gray-50 px-4 py-24">
+    <div className="min-h-screen flex justify-center bg-gradient-to-b from-white to-gray-50 px-4" style={{ paddingTop: '50vh', transform: 'translateY(-25%)' }}>
       <div className="w-full max-w-lg mx-auto space-y-12 gap-8">
         <div>
           <h2 className="text-center text-[20px] md:text-2xl font-semibold tracking-tight text-gray-800 leading-snug px-4 mb-6">
