@@ -43,9 +43,9 @@ export default function DiagnosisPage() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-white to-gray-50 px-6 py-12">
-      <div className="max-w-2xl w-full space-y-10">
+      <div className="w-full space-y-10 px-4">
         <div>
-          <h2 className="text-2xl font-bold leading-relaxed tracking-tight mb-6">
+          <h2 className="text-xl md:text-2xl font-semibold tracking-tight mb-6 text-gray-800 text-center">
             Q{q.id}. {q.text}
           </h2>
           <div className="space-y-4">
@@ -53,7 +53,7 @@ export default function DiagnosisPage() {
               <button
                 key={index}
                 onClick={() => handleSelect(opt.structure)}
-                className="block w-full px-6 py-4 bg-white border border-gray-200 rounded-xl shadow hover:shadow-md hover:bg-gray-50 transition-all duration-200 transform hover:scale-[1.02] active:scale-95 text-lg text-gray-700 text-left"
+                className="block w-full max-w-md mx-auto px-6 py-4 bg-white border border-gray-200 rounded-2xl shadow-md hover:shadow-lg hover:bg-gray-50 transition-all duration-200 transform hover:scale-[1.01] active:scale-95 text-base text-gray-800 text-left leading-relaxed"
               >
                 {opt.text}
               </button>
