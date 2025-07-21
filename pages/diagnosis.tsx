@@ -44,10 +44,10 @@ export default function DiagnosisPage() {
   const q = questions[current];
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-white to-gray-50 px-4 py-16">
+    <div className="min-h-screen flex items-start justify-center bg-gradient-to-b from-white to-gray-50 px-4 pt-24 pb-16">
       <div className="w-full max-w-lg mx-auto space-y-12">
         <div>
-          <h2 className="text-center text-2xl font-semibold tracking-tight text-gray-800 leading-snug">
+          <h2 className="text-center text-[20px] md:text-2xl font-semibold tracking-tight text-gray-800 leading-snug">
             Q{q.id}. {q.text}
           </h2>
         </div>
@@ -61,7 +61,7 @@ export default function DiagnosisPage() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 1.05, filter: 'brightness(1.3)' }}
                 transition={{ duration: 0.3 }}
-                className="block w-full px-6 py-4 bg-white border border-gray-200 rounded-2xl shadow-md hover:shadow-lg hover:bg-gray-100 transition-all duration-200 transform hover:scale-[1.01] active:scale-95 text-lg text-gray-800 text-left"
+                className="block w-2/3 max-w-sm mx-auto px-4 py-3 bg-white border border-gray-200 rounded-xl shadow-md hover:shadow-lg hover:bg-gray-100 transition-all duration-200 transform hover:scale-[1.01] active:scale-95 text-[15px] text-gray-800 text-left leading-normal"
               >
                 {opt.text}
               </motion.button>
