@@ -56,9 +56,7 @@ export default function DiagnosisResult({ score }: { score: { E: number, V: numb
           )}
         </div>
 
-        <pre className="bg-gray-100 p-6 rounded-xl text-left text-sm font-mono shadow-inner">
-          {JSON.stringify(score, null, 2)}
-        </pre>
+        
       </div>
     </div>
   );
