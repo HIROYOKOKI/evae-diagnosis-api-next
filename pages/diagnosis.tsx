@@ -1,7 +1,6 @@
 // pages/diagnosis.tsx
 
 import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 import { questions } from '../data/questions';
 
 type ScoreMap = {
@@ -50,21 +49,15 @@ export default function DiagnosisPage() {
             Q{q.id}. {q.text}
           </h2>
           <div className="space-y-4">
-            <AnimatePresence mode="wait">
-              {q.options.map((opt, index) => (
-                <motion.button
-                  key={index}
-                  onClick={() => handleSelect(opt.structure)}
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, scale: 1.05, filter: 'brightness(1.3)' }}
-                  transition={{ duration: 0.3 }}
-                  className="block w-full px-6 py-4 bg-white border border-gray-200 rounded-xl shadow hover:shadow-md hover:bg-gray-50 transition-all duration-200 transform hover:scale-[1.02] active:scale-95 text-lg text-gray-700 text-left"
-                >
-                  {opt.text}
-                </motion.button>
-              ))}
-            </AnimatePresence>
+            {q.options.map((opt, index) => (
+              <button
+                key={index}
+                onClick={() => handleSelect(opt.structure)}
+                className="block w-full px-6 py-4 bg-white border border-gray-200 rounded-xl shadow hover:shadow-md hover:bg-gray-50 transition-all duration-200 transform hover:scale-[1.02] active:scale-95 text-lg text-gray-700 text-left"
+              >
+                {opt.text}
+              </button>
+            ))}
           </div>
         </div>
         <div className="text-sm text-gray-400 text-right">
