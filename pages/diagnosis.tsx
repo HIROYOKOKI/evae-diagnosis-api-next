@@ -44,7 +44,14 @@ export default function DiagnosisPage() {
   const q = questions[current];
 
   return (
-    <div className="min-h-screen flex justify-center bg-gradient-to-b from-white to-gray-50 px-4" style={{ paddingTop: '50vh', transform: 'translateY(-25%)' }}>
+    <div
+  className="min-h-screen relative flex justify-center bg-gradient-to-b from-white to-gray-50 px-4"
+  style={{ paddingTop: '50vh', transform: 'translateY(-25%)' }}
+>
+  {/* 背景ゆらぎレイヤー */}
+  <div className="absolute inset-0 -z-10">
+    <div className="w-full h-full bg-gradient-to-br from-white via-blue-50 to-indigo-100 animate-pulse opacity-40 blur-2xl" />
+  </div>
       <div className="w-full max-w-lg mx-auto space-y-12 gap-8">
         <div>
           <h2 className="text-center text-[20px] md:text-2xl font-semibold tracking-tight text-gray-800 leading-snug px-4 mb-6">
@@ -69,8 +76,7 @@ export default function DiagnosisPage() {
             ))}
           </AnimatePresence>
         </div>
-        $1
-<footer className="mt-16 text-center text-xs text-gray-400 tracking-wide font-mono opacity-70">
+        <footer className="mt-16 text-center text-xs text-gray-400 tracking-wide font-mono opacity-70">
   EVΛƎ構造観測プロトコル  |  E / V / Λ / Ǝ STRUCTURAL FIELD OBSERVATION
 </footer>
       </div>
