@@ -3,6 +3,8 @@
 import { useState } from 'react';
 import { questions } from '../data/questions';
 
+import { motion, AnimatePresence } from 'framer-motion';
+
 type ScoreMap = {
   E: number;
   V: number;
@@ -42,23 +44,29 @@ export default function DiagnosisPage() {
   const q = questions[current];
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-white to-gray-50 px-6 py-12">
-      <div className="w-full space-y-10 px-4">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-white to-gray-50 px-4 py-16">
+      <div className="w-full max-w-lg mx-auto space-y-12">
         <div>
-          <h2 className="text-xl md:text-2xl font-semibold tracking-tight mb-6 text-gray-800 text-center">
+          <h2 className="text-center text-2xl font-semibold tracking-tight text-gray-800 leading-snug">
             Q{q.id}. {q.text}
           </h2>
-          <div className="space-y-4">
+        </div>
+        <div className="space-y-6">
+          <AnimatePresence mode="wait">
             {q.options.map((opt, index) => (
-              <button
+              <motion.button
                 key={index}
                 onClick={() => handleSelect(opt.structure)}
-                className="block w-full max-w-md mx-auto px-6 py-4 bg-white border border-gray-200 rounded-2xl shadow-md hover:shadow-lg hover:bg-gray-50 transition-all duration-200 transform hover:scale-[1.01] active:scale-95 text-base text-gray-800 text-left leading-relaxed"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 1.05, filter: 'brightness(1.3)' }}
+                transition={{ duration: 0.3 }}
+                className="block w-full px-6 py-4 bg-white border border-gray-200 rounded-2xl shadow-md hover:shadow-lg hover:bg-gray-100 transition-all duration-200 transform hover:scale-[1.01] active:scale-95 text-lg text-gray-800 text-left"
               >
                 {opt.text}
-              </button>
+              </motion.button>
             ))}
-          </div>
+          </AnimatePresence>
         </div>
         <div className="text-sm text-gray-400 text-right">
           {current + 1} / {questions.length}
