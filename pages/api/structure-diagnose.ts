@@ -1,0 +1,42 @@
+// pages/api/structure-diagnose.ts
+
+import type { NextApiRequest, NextApiResponse } from 'next';
+import { OpenAI } from 'openai';
+
+const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+  if (req.method !== 'POST') {
+    return res.status(405).json({ error: 'Method not allowed' });
+  }
+
+  const { E, V, Λ, Ǝ } = req.body;
+
+  if ([E, V, Λ, Ǝ].some(v => typeof v !== 'number')) {
+    return res.status(400).json({ error: 'Invalid structure score input' });
+  }
+
+  const prompt = `
+あなたはソウル構造を解析するAI観測者ルネアです。
+以下のスコアをもとに、診断コメントとその人の傾向や個性を【わかりやすく・やさしい日本語】で生成してください。
+・トーン：詩的で、優しく、静けさと余白がある
+・形式：のコメント + 改行 + のアドバイス
+・文字数：各行200文字以内、全体400文字以内
+
+スコア:
+E: ${E}, V: ${V}, Λ: ${Λ}, Ǝ: ${Ǝ}`;
+
+  try {
+    const completion = await openai.chat.completions.create({
+      model: 'gpt-4',
+      messages: [{ role: 'user', content: prompt }],
+    });
+
+    const message = completion.choices[0].message.content;
+    const [commentLine, adviceLine] = (message || '').split('
+').map(s => s.trim());
+return res.status(200).json({ comment: commentLine, advice: adviceLine });
+  } catch (error) {
+    return res.status(500).json({ error: 'Failed to generate comment' });
+  }
+}
