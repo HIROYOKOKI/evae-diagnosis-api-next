@@ -69,9 +69,10 @@ export default function DiagnosisPage() {
             ))}
           </AnimatePresence>
         </div>
-        <div className="text-sm text-gray-400 text-right">
-          {current + 1} / {questions.length}
-        </div>
+        $1
+<footer className="mt-16 text-center text-xs text-gray-400 tracking-wide font-mono opacity-70">
+  EVΛƎ構造観測プロトコル  |  E / V / Λ / Ǝ STRUCTURAL FIELD OBSERVATION
+</footer>
       </div>
     </div>
   );
