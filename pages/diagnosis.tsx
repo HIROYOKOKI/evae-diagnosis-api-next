@@ -44,10 +44,10 @@ export default function DiagnosisPage() {
   const q = questions[current];
 
   return (
-    <div className="min-h-screen flex items-start justify-center bg-gradient-to-b from-white to-gray-50 px-4 pt-52 pb-16">
-      <div className="w-full max-w-lg mx-auto space-y-12">
+    <div className="min-h-screen flex items-start justify-center bg-gradient-to-b from-white to-gray-50 px-4 pt-32 pb-16">
+      <div className="w-full max-w-lg mx-auto space-y-12 gap-8">
         <div>
-          <h2 className="text-center text-[20px] md:text-2xl font-semibold tracking-tight text-gray-800 leading-snug px-4">
+          <h2 className="text-center text-[20px] md:text-2xl font-semibold tracking-tight text-gray-800 leading-snug px-4 mb-6">
             Q{q.id}. {q.text}
           </h2>
         </div>
@@ -61,7 +61,7 @@ export default function DiagnosisPage() {
   animate={{ opacity: 1, y: 0 }}
   exit={{ opacity: 0, scale: 1.05, filter: 'brightness(1.3)' }}
   transition={{ duration: 0.3 }}
-  className="block w-2/3 max-w-sm mx-auto px-5 py-4 bg-white border border-gray-300 rounded-xl shadow-md hover:shadow-lg hover:bg-gray-100 transition-all duration-200 transform hover:scale-[1.01] active:scale-95 text-[16px] text-gray-800 text-left leading-snug"
+  className="block w-2/3 max-w-sm mx-auto px-5 py-5 bg-white border border-gray-300 rounded-xl shadow-md hover:shadow-lg hover:bg-gray-100 transition-all duration-200 transform hover:scale-[1.01] active:scale-95 text-[16px] text-gray-800 text-left leading-snug"
 >
   <span className="inline-block mr-2">🔘</span>
   <span>{opt.text}</span>
