@@ -16,12 +16,10 @@ export default function DiagnosisResult({ score }: { score: { E: number, V: numb
           body: JSON.stringify(score),
         });
         const data = await res.json();
-        setComment(data.comment);
-        setAdvice(data.advice || 'うまく言えないけど、今はまずゆっくり深呼吸して、少し笑ってみようか。')
-      } catch (err) {
-        setComment('診断コメントの取得に失敗しました。');
-      } finally {
-        setLoading(false);
+setComment(data.comment || data.message?.split('
+')?.[2]?.replace('コメント：', '').trim() || '構造のコメントが取得できませんでした。');
+setAdvice(data.advice || data.message?.split('
+')?.[3]?.replace('アドバイス：', '').trim() || '今月はあまり無理せず、ひと呼吸置いてから動いてみようか。');
       }
     };
     fetchComment();
