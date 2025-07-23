@@ -43,7 +43,7 @@ E: ${E}, V: ${V}, Λ: ${Λ}, Ǝ: ${Ǝ}`;
     messages: [{ role: 'user', content: prompt }],
   });
 
-  const raw = completion.choices[0].message.content;
+const raw = completion.choices[0].message.content;
 const message = typeof raw === 'string' ? raw : '';
 const [commentLine, adviceLine] = message.split('\n').map(s => s.trim());
   return res.status(200).json({ comment: commentLine, advice: adviceLine });
