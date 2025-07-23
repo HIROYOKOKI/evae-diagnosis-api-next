@@ -7,14 +7,25 @@ module.exports = {
     './styles/**/*.{css}',
   ],
   safelist: [
-  'text-cyan-100',
+  { pattern: /text-cyan-.*/ },
+  { pattern: /bg-cyan-.*/ },
+  { pattern: /hover:bg-cyan-.*/ },
+  { pattern: /border-cyan-.*/ },
+  { pattern: /rounded-.*/ },
+  { pattern: /text-.*/ },
+  { pattern: /bg-.*/ },
   'bg-transparent',
   'text-white',
+  'text-center',
   'font-sans',
   'font-bold',
   'tracking-wide',
   'shadow-md',
   'drop-shadow-md',
+  'px-6',
+  'py-4',
+  'text-sm',
+  'md:text-base'
 ]
   theme: {
     extend: {
