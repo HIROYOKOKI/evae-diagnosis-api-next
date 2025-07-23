@@ -9,19 +9,28 @@ module.exports = {
   safelist: [
     { pattern: /animate-.*/ },
     { pattern: /delay-.*/ },
-    { pattern: /hover:border-evae-.*/ }, // ⭐ ← 追加
+    { pattern: /hover:border-evae-.*/ },
     'text-green-500',
     'text-3xl',
     'font-bold',
   ],
   theme: {
     extend: {
+      fontFamily: {
+        sans: ['"Noto Sans JP"', 'system-ui', 'sans-serif'],
+      },
       colors: {
         evae: {
           e: '#e94e77',         // E = Emotion
           v: '#3490dc',         // V = Vision
           lambda: '#38a169',    // Λ = Logic
           eMirror: '#9f7aea',   // Ǝ = Echo
+        },
+        cyan: {
+          100: '#A5F3FC',
+          300: '#67E8F9',
+          400: '#22D3EE',
+          800: '#155e75',
         },
       },
       keyframes: {
