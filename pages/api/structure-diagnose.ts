@@ -44,8 +44,8 @@ E: ${E}, V: ${V}, Λ: ${Λ}, Ǝ: ${Ǝ}`;
     });
 
     const raw = completion.choices[0].message.content;
-    const message = typeof raw === 'string' ? raw : '';
-    const lines = message.split('\n').map(s => s.trim());
+const message = typeof raw === 'string' ? raw : '';
+const [commentLine, adviceLine] = message.split('\n').map((s: string) => s.trim());
 
     const name = lines.find(l => l.startsWith('構造名：'))?.replace('構造名：', '').trim() || '';
     const theme = lines.find(l => l.startsWith('テーマ：'))?.replace('テーマ：', '').trim() || '';
