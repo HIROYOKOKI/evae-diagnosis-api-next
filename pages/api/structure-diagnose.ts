@@ -22,11 +22,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 1. 構造名（6文字以内）
 2. 今月のテーマ（10〜20文字）
 3. コメント（最大200文字）
-   - 読む人が自分の構造を客観的に理解できるようなわかりやすい具体的な観測文
-   - 語尾は「〜です」「〜ます」など安定した文体
 4. アドバイス（最大200文字）
-   - やさしく話しかけるような口調（例：「〜だね」「〜かも！」）
-   - 抽象的すぎず、親しみと明るさを含むわかりやすい表現
 
 出力形式：
 構造名：◯◯◯
@@ -45,7 +41,7 @@ E: ${E}, V: ${V}, Λ: ${Λ}, Ǝ: ${Ǝ}`;
 
     const raw = completion.choices[0].message.content;
     const message = typeof raw === 'string' ? raw : '';
-    const lines = message.split('\n').map((s: string) => s.trim());
+    const lines = message.split('\\n').map((s: string) => s.trim());
 
     const name = lines.find(l => l.startsWith('構造名：'))?.replace('構造名：', '').trim() || '';
     const theme = lines.find(l => l.startsWith('テーマ：'))?.replace('テーマ：', '').trim() || '';
