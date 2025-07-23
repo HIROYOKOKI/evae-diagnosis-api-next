@@ -7,22 +7,15 @@ module.exports = {
     './styles/**/*.{css}',
   ],
   safelist: [
-    { pattern: /text-cyan-.*/ },
-    { pattern: /bg-cyan-.*/ },
-    { pattern: /hover:bg-cyan-.*/ },
-    { pattern: /border-cyan-.*/ },
-    { pattern: /rounded-.*/ },
-    { pattern: /text-.*/ },
-    { pattern: /bg-.*/ },
-    'bg-transparent',
-    'text-white',
-    'text-center',
-    'font-sans',
-    'font-bold',
-    'tracking-wide',
-    'shadow-md',
-    'drop-shadow-md',
-  ],
+  'text-cyan-100',
+  'bg-transparent',
+  'text-white',
+  'font-sans',
+  'font-bold',
+  'tracking-wide',
+  'shadow-md',
+  'drop-shadow-md',
+]
   theme: {
     extend: {
       fontFamily: {
