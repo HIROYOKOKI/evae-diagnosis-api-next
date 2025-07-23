@@ -87,7 +87,7 @@ export default function Diagnosis() {
   return (
   <div className="p-6 max-w-xl mx-auto">
     <h1 className="text-red-500">テスト</h1>  {/* ← ここがテスト表示 */}
-    <h2 className="text-xl font-bold mb-6">{q.text}</h2>
+    <h2 className="text-red-500 font-bold text-2xl mb-6">これはテスト表示です</h2>
     <ul className="space-y-4">
       {q.options.map((opt) => (
         <li key={opt.label}>
