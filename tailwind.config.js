@@ -17,13 +17,14 @@ module.exports = {
   { pattern: /rounded-.*/ },
   { pattern: /text-.*/ },
   { pattern: /bg-.*/ },
-  'bg-transparent',
   'text-white',
   'text-center',
+  'bg-transparent',
   'font-sans',
-  'tracking-wide',
   'font-bold',
+  'tracking-wide',
   'shadow-md',
+]
 ],
   ],
   theme: {
