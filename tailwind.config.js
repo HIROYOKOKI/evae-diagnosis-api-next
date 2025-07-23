@@ -7,9 +7,6 @@ module.exports = {
     './styles/**/*.{css}',
   ],
   safelist: [
-  { pattern: /animate-.*/ },
-  { pattern: /delay-.*/ },
-  { pattern: /hover:border-evae-.*/ },
   { pattern: /text-cyan-.*/ },
   { pattern: /bg-cyan-.*/ },
   { pattern: /hover:bg-cyan-.*/ },
@@ -17,13 +14,15 @@ module.exports = {
   { pattern: /rounded-.*/ },
   { pattern: /text-.*/ },
   { pattern: /bg-.*/ },
+  'bg-transparent',
   'text-white',
   'text-center',
-  'bg-transparent',
   'font-sans',
   'font-bold',
   'tracking-wide',
   'shadow-md',
+  'drop-shadow-md',
+]
 ]
 ],
   ],
