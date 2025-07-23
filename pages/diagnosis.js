@@ -85,20 +85,20 @@ export default function Diagnosis() {
   const q = questions[current];
 
   return (
-    <div className="p-6 max-w-xl mx-auto">
-      <h2 className="text-xl font-bold mb-6">{q.text}</h2>
-      <ul className="space-y-4">
-        {q.options.map((opt) => (
-          <li key={opt.label}>
-            <button
-              className="w-full text-left border p-4 rounded hover:bg-gray-100"
-              onClick={() => handleSelect(opt.structure)}
-            >
-              <strong>{opt.label}.</strong> {opt.text}
-            </button>
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
-}
+  <div className="p-6 max-w-xl mx-auto">
+    <h1 className="text-red-500">テスト</h1>  {/* ← ここがテスト表示 */}
+    <h2 className="text-xl font-bold mb-6">{q.text}</h2>
+    <ul className="space-y-4">
+      {q.options.map((opt) => (
+        <li key={opt.label}>
+          <button
+            className="w-full text-left border p-4 rounded hover:bg-gray-100"
+            onClick={() => handleSelect(opt.structure)}
+          >
+            <strong>{opt.label}.</strong> {opt.text}
+          </button>
+        </li>
+      ))}
+    </ul>
+  </div>
+);
