@@ -53,7 +53,6 @@ E: ${E}, V: ${V}, Λ: ${Λ}, Ǝ: ${Ǝ}`;
     const advice = lines.find(l => l.startsWith('アドバイス：'))?.replace('アドバイス：', '').trim() || '';
 
     return res.status(200).json({ name, theme, comment, advice });
-    const message = completion.choices[0].message.content;
   } catch (error) {
     return res.status(500).json({ error: 'コメントの生成に失敗しました' });
   }
