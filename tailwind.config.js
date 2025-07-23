@@ -6,7 +6,7 @@ module.exports = {
     './app/**/*.{js,ts,jsx,tsx}',
     './styles/**/*.{css}',
   ],
-  safelist: [
+ safelist: [
   { pattern: /text-cyan-.*/ },
   { pattern: /bg-cyan-.*/ },
   { pattern: /hover:bg-cyan-.*/ },
@@ -14,6 +14,7 @@ module.exports = {
   { pattern: /rounded-.*/ },
   { pattern: /text-.*/ },
   { pattern: /bg-.*/ },
+  'text-red-500', // ← これを追加する
   'bg-transparent',
   'text-white',
   'text-center',
@@ -26,6 +27,7 @@ module.exports = {
   'py-4',
   'text-sm',
   'md:text-base'
+],
 ]
   theme: {
     extend: {
