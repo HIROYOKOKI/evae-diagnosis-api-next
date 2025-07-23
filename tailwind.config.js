@@ -1,73 +1,62 @@
-/** @type {import('tailwindcss').Config} */
-module.exports = {
-  content: [
-    './pages/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './app/**/*.{js,ts,jsx,tsx}',
-    './styles/**/*.{css}',
-  ],
-  safelist: [
-    { pattern: /text-cyan-.*/ },
-    { pattern: /bg-cyan-.*/ },
-    { pattern: /hover:bg-cyan-.*/ },
-    { pattern: /border-cyan-.*/ },
-    { pattern: /rounded-.*/ },
-    { pattern: /text-.*/ },
-    { pattern: /bg-.*/ },
-    'bg-transparent',
-    'text-white',
-    'text-center',
-    'font-sans',
-    'font-bold',
-    'tracking-wide',
-    'shadow-md',
-    'drop-shadow-md',
-  ],
-  theme: {
-    extend: {
-      fontFamily: {
-        sans: ['"Noto Sans JP"', 'system-ui', 'sans-serif'],
-      },
-      colors: {
-        evae: {
-          e: '#e94e77',
-          v: '#3490dc',
-          lambda: '#38a169',
-          eMirror: '#9f7aea',
-        },
-        cyan: {
-          100: '#A5F3FC',
-          300: '#67E8F9',
-          400: '#22D3EE',
-          800: '#155e75',
-        },
-      },
-      keyframes: {
-        fadeInUp: {
-          '0%': { opacity: '0', transform: 'translateY(20px)' },
-          '100%': { opacity: '1', transform: 'translateY(0)' },
-        },
-        wiggle: {
-          '0%, 100%': { transform: 'rotate(-2deg)' },
-          '50%': { transform: 'rotate(2deg)' },
-        },
-        slideInRight: {
-          '0%': { transform: 'translateX(100%)', opacity: 0 },
-          '100%': { transform: 'translateX(0)', opacity: 1 },
-        },
-        trackingInExpand: {
-          '0%': { letterSpacing: '-0.5em', opacity: '0' },
-          '40%': { opacity: '0.6' },
-          '100%': { letterSpacing: 'normal', opacity: '1' },
-        },
-      },
-      animation: {
-        fadeInUp: 'fadeInUp 0.8s ease-out forwards',
-        wiggle: 'wiggle 0.4s ease-in-out infinite',
-        slideInRight: 'slideInRight 0.6s ease-out forwards',
-        'tracking-in-expand': 'trackingInExpand 0.8s ease-out forwards',
-      },
-    },
-  },
-  plugins: [],
-};
+import { useState } from 'react';
+import { questions } from '../data/questions';
+import DiagnosisResult from '../components/DiagnosisResult';
+
+export default function DiagnosisPage() {
+  const [current, setCurrent] = useState(0);
+  const [score, setScore] = useState({ E: 0, V: 0, Λ: 0, Ǝ: 0 });
+  const [finished, setFinished] = useState(false);
+
+  const handleSelect = (structure) => {
+    const updated = { ...score, [structure]: score[structure] + 1 };
+    setScore(updated);
+
+    if (current + 1 < questions.length) {
+      setCurrent(current + 1);
+    } else {
+      setFinished(true);
+    }
+  };
+
+  if (finished) return <DiagnosisResult score={score} />;
+
+  const q = questions[current];
+
+  return (
+    <div className="relative min-h-screen flex items-center justify-center bg-black text-white font-sans px-4">
+      {/* 背景 */}
+      <div className="absolute inset-0 -z-10">
+        <img src="/background.png" alt="背景" className="w-full h-full object-cover" />
+        <div className="absolute inset-0 bg-black opacity-40" />
+      </div>
+
+      {/* 診断UI */}
+      <div className="relative z-10 w-full max-w-md text-center space-y-10">
+        <h2 className="text-lg md:text-xl font-bold text-cyan-100 drop-shadow-md tracking-wide">
+          Q{q.id}. {q.text}
+        </h2>
+
+        <div className="space-y-4">
+          {q.options.map((opt, index) => (
+            <button
+              key={index}
+              onClick={() => handleSelect(opt.structure)}
+              className="w-full px-6 py-4 border border-cyan-300 text-cyan-100 rounded-xl bg-transparent hover:bg-cyan-800/20 transition duration-200 text-left font-sans text-sm md:text-base shadow-md"
+            >
+              ◉ {opt.text}
+            </button>
+          ))}
+        </div>
+
+        <div className="text-xs tracking-wide text-cyan-300 opacity-80">
+          {current + 1} / {questions.length}
+        </div>
+
+        <footer className="pt-12 text-[10px] text-cyan-400 tracking-wide font-mono opacity-60">
+          EVΛƎ構造観測プロトコル<br />
+          E / V / Λ / Ǝ STRUCTURAL FIELD OBSERVATION
+        </footer>
+      </div>
+    </div>
+  );
+}
