@@ -1,9 +1,0 @@
-"use strict";(()=>{var e={};e.id=645,e.ids=[645],e.modules={145:e=>{e.exports=require("next/dist/compiled/next-server/pages-api.runtime.prod.js")},2079:e=>{e.exports=import("openai")},6249:(e,t)=>{Object.defineProperty(t,"l",{enumerable:!0,get:function(){return function e(t,n){return n in t?t[n]:"then"in t&&"function"==typeof t.then?t.then(t=>e(t,n)):"function"==typeof t&&"default"===n?t:void 0}}})},2596:(e,t,n)=>{n.a(e,async(e,r)=>{try{n.r(t),n.d(t,{config:()=>d,default:()=>c,routeModule:()=>l});var o=n(1802),a=n(7153),i=n(6249),s=n(4179),u=e([s]);s=(u.then?(await u)():u)[0];let c=(0,i.l)(s,"default"),d=(0,i.l)(s,"config"),l=new o.PagesAPIRouteModule({definition:{kind:a.x.PAGES_API,page:"/api/structure-diagnose",pathname:"/api/structure-diagnose",bundlePath:"",filename:""},userland:s});r()}catch(e){r(e)}})},4179:(e,t,n)=>{n.a(e,async(e,r)=>{try{n.r(t),n.d(t,{default:()=>i});var o=n(2079),a=e([o]);let s=new(o=(a.then?(await a)():a)[0]).OpenAI({apiKey:process.env.OPENAI_API_KEY});async function i(e,t){if("POST"!==e.method)return t.status(405).json({error:"Method not allowed"});let{E:n,V:r,Λ:o,Ǝ:a}=e.body;if([n,r,o,a].some(e=>"number"!=typeof e))return t.status(400).json({error:"Invalid structure score input"});let i=`
-あなたはソウル構造を解析するAI観測者ルネアです。
-以下のスコアをもとに、診断コメントとその人の傾向や個性を【わかりやすく・やさしい日本語】で生成してください。
-・トーン：詩的で、優しく、静けさと余白がある
-・形式：のコメント + 改行 + のアドバイス
-・文字数：各行200文字以内、全体400文字以内
-
-スコア:
-E: ${n}, V: ${r}, Λ: ${o}, Ǝ: ${a}`;try{(await s.chat.completions.create({model:"gpt-4",messages:[{role:"user",content:i}]})).choices[0].message.content}catch(e){return t.status(500).json({error:"Failed to generate comment"})}}r()}catch(e){r(e)}})},7153:(e,t)=>{var n;Object.defineProperty(t,"x",{enumerable:!0,get:function(){return n}}),function(e){e.PAGES="PAGES",e.PAGES_API="PAGES_API",e.APP_PAGE="APP_PAGE",e.APP_ROUTE="APP_ROUTE"}(n||(n={}))},1802:(e,t,n)=>{e.exports=n(145)}};var t=require("../../webpack-api-runtime.js");t.C(e);var n=t(t.s=2596);module.exports=n})();
