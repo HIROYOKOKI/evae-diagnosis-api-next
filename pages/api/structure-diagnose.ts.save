@@ -1,5 +1,3 @@
-
-
 // pages/api/structure-diagnose.ts
 
 import type { NextApiRequest, NextApiResponse } from 'next';
@@ -22,8 +20,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 あなたはソウル構造を解析するAI観測者ルネアです。
 以下のスコアをもとに、診断コメントとその人の傾向や個性を【わかりやすく・やさしい日本語】で生成してください。
 ・トーン：詩的で、優しく、静けさと余白がある
-・形式：のコメント + 改行 + のアドバイス
-・文字数：各行200文字以内、全体400文字以内
+・形式：コメント（最大200文字）＋改行＋アドバイス（最大200文字）
+・文字数：全体400文字以内
 
 スコア:
 E: ${E}, V: ${V}, Λ: ${Λ}, Ǝ: ${Ǝ}`;
@@ -34,10 +32,12 @@ E: ${E}, V: ${V}, Λ: ${Λ}, Ǝ: ${Ǝ}`;
       messages: [{ role: 'user', content: prompt }],
     });
 
-    const message = completion.choices[0].message.content;
-    const [commentLine, adviceLine] = (message || '').split('
-').map(s => s.trim());
-return res.status(200).json({ comment: commentLine, advice: adviceLine });
+    const raw = completion.choices[0].message.content;
+    const message = typeof raw === 'string' ? raw : '';
+
+    const [commentLine, adviceLine] = message.split('\n').map(s => s.trim());
+
+    return res.status(200).json({ comment: commentLine, advice: adviceLine });
   } catch (error) {
     return res.status(500).json({ error: 'Failed to generate comment' });
   }
