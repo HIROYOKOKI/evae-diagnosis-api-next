@@ -1,4 +1,5 @@
 // pages/api/structure-diagnose.ts
+
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { OpenAI } from 'openai';
 
@@ -44,8 +45,9 @@ E: ${E}, V: ${V}, Λ: ${Λ}, Ǝ: ${Ǝ}`;
     });
 
     const raw = completion.choices[0].message.content;
-    const message = typeof raw === 'string' ? raw : '';
-    const lines = message.split('\n').map((s: string) => s.trim());
+    const content = typeof raw === 'string' ? raw : '';
+
+    const lines = content.split('\n').map((line: string) => line.trim());
 
     const name = lines.find(l => l.startsWith('構造名：'))?.replace('構造名：', '').trim() || '';
     const theme = lines.find(l => l.startsWith('テーマ：'))?.replace('テーマ：', '').trim() || '';
@@ -54,6 +56,7 @@ E: ${E}, V: ${V}, Λ: ${Λ}, Ǝ: ${Ǝ}`;
 
     return res.status(200).json({ name, theme, comment, advice });
   } catch (error) {
+    console.error('[OpenAI Error]', error);
     return res.status(500).json({ error: 'コメントの生成に失敗しました' });
   }
 }
