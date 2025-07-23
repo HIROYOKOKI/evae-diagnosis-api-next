@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { questions } from '../data/questions';
-import DiagnosisResult from '../components/DiagnosisResult'; // ← 追加
+import DiagnosisResult from '../components/DiagnosisResult';
 
 export default function DiagnosisPage() {
   const [current, setCurrent] = useState(0);
@@ -25,17 +25,19 @@ export default function DiagnosisPage() {
   const q = questions[current];
 
   return (
-    <div
-      className="min-h-screen relative flex justify-center bg-gradient-to-b from-white to-gray-50 px-4"
-      style={{ paddingTop: '50vh', transform: 'translateY(-25%)' }}
-    >
-      {/* 背景アニメーション */}
+    <div className="min-h-screen relative flex justify-center items-center text-cyan-100 px-4 font-sans">
+      {/* 背景画像 */}
       <div className="absolute inset-0 -z-10">
-        <div className="w-full h-full bg-gradient-to-br from-white via-blue-50 to-indigo-100 animate-pulse opacity-40 blur-2xl" />
+        <img
+          src="/background.png"
+          alt="background"
+          className="w-full h-full object-cover"
+        />
       </div>
 
-      <div className="w-full max-w-lg mx-auto space-y-12 gap-8">
-        <h2 className="text-center text-[20px] md:text-2xl font-semibold tracking-tight text-gray-800 leading-snug px-4 mb-6">
+      {/* 質問セクション */}
+      <div className="w-full max-w-md text-center space-y-10">
+        <h2 className="text-lg md:text-xl tracking-wide font-semibold drop-shadow-md">
           Q{q.id}. {q.text}
         </h2>
 
@@ -44,20 +46,20 @@ export default function DiagnosisPage() {
             <button
               key={index}
               onClick={() => handleSelect(opt.structure)}
-              className="block w-2/3 max-w-sm mx-auto px-5 py-5 bg-white border border-gray-300 rounded-xl shadow-md hover:shadow-lg hover:bg-gray-100 transition-all duration-200 transform hover:scale-[1.01] active:scale-95 text-[16px] text-gray-800 text-left leading-snug"
+              className="w-full px-6 py-4 border border-cyan-300 rounded-xl bg-transparent hover:bg-cyan-800/20 transition-all duration-200 text-left text-cyan-100 text-sm md:text-base tracking-wide"
             >
-              <span className="inline-block mr-2">◉</span>
-              <span>{opt.text}</span>
+              ◉ {opt.text}
             </button>
           ))}
         </div>
 
-        <div className="text-sm text-gray-400 text-right">
+        <div className="text-xs tracking-wider text-cyan-300 opacity-80">
           {current + 1} / {questions.length}
         </div>
 
-        <footer className="mt-16 text-center text-xs text-gray-400 tracking-wide font-mono opacity-70">
-          EVΛƎ構造観測プロトコル  |  E / V / Λ / Ǝ STRUCTURAL FIELD OBSERVATION
+        <footer className="pt-12 text-[10px] text-cyan-400 tracking-wide font-mono opacity-60">
+          EVΛƎ構造観測プロトコル<br />
+          E / V / Λ / Ǝ STRUCTURAL FIELD OBSERVATION
         </footer>
       </div>
     </div>
