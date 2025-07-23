@@ -10,6 +10,8 @@ module.exports = {
     { pattern: /animate-.*/ },
     { pattern: /delay-.*/ },
     { pattern: /hover:border-evae-.*/ },
+    { pattern: /text-cyan-.*/ }, 
+    { pattern: /bg-cyan-.*/ },  
     'text-green-500',
     'text-3xl',
     'font-bold',
