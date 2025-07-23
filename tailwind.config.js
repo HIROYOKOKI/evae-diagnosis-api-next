@@ -7,24 +7,21 @@ module.exports = {
     './styles/**/*.{css}',
   ],
   safelist: [
-  { pattern: /text-cyan-.*/ },
-  { pattern: /bg-cyan-.*/ },
-  { pattern: /hover:bg-cyan-.*/ },
-  { pattern: /border-cyan-.*/ },
-  { pattern: /rounded-.*/ },
-  { pattern: /text-.*/ },
-  { pattern: /bg-.*/ },
-  'bg-transparent',
-  'text-white',
-  'text-center',
-  'font-sans',
-  'font-bold',
-  'tracking-wide',
-  'shadow-md',
-  'drop-shadow-md',
-]
-]
-],
+    { pattern: /text-cyan-.*/ },
+    { pattern: /bg-cyan-.*/ },
+    { pattern: /hover:bg-cyan-.*/ },
+    { pattern: /border-cyan-.*/ },
+    { pattern: /rounded-.*/ },
+    { pattern: /text-.*/ },
+    { pattern: /bg-.*/ },
+    'bg-transparent',
+    'text-white',
+    'text-center',
+    'font-sans',
+    'font-bold',
+    'tracking-wide',
+    'shadow-md',
+    'drop-shadow-md',
   ],
   theme: {
     extend: {
@@ -33,10 +30,10 @@ module.exports = {
       },
       colors: {
         evae: {
-          e: '#e94e77',         // E = Emotion
-          v: '#3490dc',         // V = Vision
-          lambda: '#38a169',    // Λ = Logic
-          eMirror: '#9f7aea',   // Ǝ = Echo
+          e: '#e94e77',
+          v: '#3490dc',
+          lambda: '#38a169',
+          eMirror: '#9f7aea',
         },
         cyan: {
           100: '#A5F3FC',
