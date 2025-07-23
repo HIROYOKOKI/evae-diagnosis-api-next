@@ -45,7 +45,7 @@ E: ${E}, V: ${V}, Λ: ${Λ}, Ǝ: ${Ǝ}`;
 
   const raw = completion.choices[0].message.content;
   const message = typeof raw === 'string' ? raw : '';
-  const [commentLine, adviceLine] = message.split('\n').map(s => s.trim());
+  const [commentLine, adviceLine] = (message || '').split('\n').map(s => s.trim());
 
   return res.status(200).json({ comment: commentLine, advice: adviceLine });
 } catch (error) {
