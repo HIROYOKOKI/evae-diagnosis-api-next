@@ -5,8 +5,8 @@
   "devFiles": [],
   "ampDevFiles": [],
   "lowPriorityFiles": [
-    "static/DibJ6HpBqvg7o58EkJsQ5/_buildManifest.js",
-    "static/DibJ6HpBqvg7o58EkJsQ5/_ssgManifest.js"
+    "static/XGtLlpINIvhQ2rQKeqq6t/_buildManifest.js",
+    "static/XGtLlpINIvhQ2rQKeqq6t/_ssgManifest.js"
   ],
   "rootMainFiles": [],
   "pages": {
@@ -20,7 +20,7 @@
       "static/chunks/webpack-8fa1640cc84ba8fe.js",
       "static/chunks/framework-49c6cecf1f6d5795.js",
       "static/chunks/main-b72093f7aa2e45f9.js",
-      "static/css/344b9802ec3d96f1.css",
+      "static/css/fa6cb51157dcd258.css",
       "static/chunks/pages/_app-301076f909f3a9e7.js"
     ],
     "/_error": [
@@ -39,7 +39,7 @@
       "static/chunks/webpack-8fa1640cc84ba8fe.js",
       "static/chunks/framework-49c6cecf1f6d5795.js",
       "static/chunks/main-b72093f7aa2e45f9.js",
-      "static/chunks/pages/diagnosis-a76ac4d89bbbc448.js"
+      "static/chunks/pages/diagnosis-ce484c6a2a67843c.js"
     ],
     "/diagnosis 2": [
       "static/chunks/webpack-8fa1640cc84ba8fe.js",
