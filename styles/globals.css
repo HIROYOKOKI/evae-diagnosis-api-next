@@ -4,7 +4,6 @@
 
 /* ✅ ここはもう普通のCSSで背景指定 */
 html, body {
-  background-color: white;        /* ← bg-white 相当 */
   color: #1f2937;                 /* ← text-gray-800 相当 */
   font-family: 'Noto Sans JP', sans-serif;
   -webkit-font-smoothing: antialiased;
