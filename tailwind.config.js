@@ -14,20 +14,18 @@ module.exports = {
   { pattern: /rounded-.*/ },
   { pattern: /text-.*/ },
   { pattern: /bg-.*/ },
-  'text-red-500', // ← これを追加する
-  'bg-transparent',
-  'text-white',
   'text-center',
   'font-sans',
   'font-bold',
   'tracking-wide',
-  'shadow-md',
   'drop-shadow-md',
-  'px-6',
-  'py-4',
-  'text-sm',
-  'md:text-base'
-],
+  'shadow-md',
+  'relative',
+  'z-10',
+  'w-full',
+  'max-w-md',
+  'space-y-10',
+]
 ]
   theme: {
     extend: {
