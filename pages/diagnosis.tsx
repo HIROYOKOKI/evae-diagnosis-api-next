@@ -30,7 +30,6 @@ export default function DiagnosisPage() {
         <div className="absolute inset-0 bg-black opacity-40" />
       </div>
 
-      {/* 診断UI */}
       <div className="relative z-10 w-full max-w-md text-center space-y-10">
         <h2 className="text-lg md:text-xl font-bold text-cyan-100 drop-shadow-md tracking-wide">
           Q{q.id}. {q.text}
