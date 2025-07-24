@@ -2,15 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ✅ ここはもう普通のCSSで背景指定 */
+/* ✅ グローバル背景・文字色設定 */
 html, body {
-  /* color: #1f2937; ← 削除してTailwind側のtext-クラスを優先 */
+  color: white; /* ← ここで白文字を指定 */
   font-family: 'Noto Sans JP', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* ✅ Tailwindにカスタムアニメーションのclass名を登録する */
+/* ✅ Tailwindにカスタムアニメーションのclass名を登録 */
 @layer utilities {
   .animate-fadeInUp {
     animation: fadeInUp 0.8s ease-out forwards;
