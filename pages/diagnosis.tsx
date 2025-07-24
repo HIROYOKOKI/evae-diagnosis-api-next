@@ -52,15 +52,38 @@ export default function DiagnosisPage() {
           ))}
         </div>
 
-        <div className="text-xs tracking-wider text-cyan-300 opacity-80">
-          {current + 1} / {questions.length}
-        </div>
+        <div className="relative min-h-screen flex items-center justify-center bg-black text-white font-sans px-4">
+  <div className="absolute inset-0 -z-10">
+    <img src="/background.png" alt="背景" className="w-full h-full object-cover" />
+    <div className="absolute inset-0 bg-black opacity-40" />
+  </div>
 
-        <footer className="pt-12 text-[10px] text-cyan-400 tracking-wide font-mono opacity-60">
-          EVΛƎ構造観測プロトコル<br />
-          E / V / Λ / Ǝ STRUCTURAL FIELD OBSERVATION
-        </footer>
-      </div>
+  <div className="relative z-10 w-full max-w-md text-center space-y-10">
+    <h2 className="text-lg md:text-xl font-bold text-cyan-100 drop-shadow-md tracking-wide">
+      Q{q.id}. {q.text}
+    </h2>
+
+    <div className="space-y-4">
+      {q.options.map((opt, index) => (
+        <button
+          key={index}
+          onClick={() => handleSelect(opt.structure)}
+          className="w-full px-6 py-4 border border-cyan-300 text-cyan-100 rounded-xl bg-transparent hover:bg-cyan-800/20 transition duration-200 text-left font-sans text-sm md:text-base shadow-md"
+        >
+          ◉ {opt.text}
+        </button>
+      ))}
     </div>
+
+    <div className="text-xs tracking-wide text-cyan-300 opacity-80">
+      {current + 1} / {questions.length}
+    </div>
+
+    <footer className="pt-12 text-[10px] text-cyan-400 tracking-wide font-mono opacity-60">
+      EVΛƎ構造観測プロトコル<br />
+      E / V / Λ / Ǝ STRUCTURAL FIELD OBSERVATION
+    </footer>
+  </div>
+</div>
   );
 }
