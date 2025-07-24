@@ -1,3 +1,4 @@
+// tailwind.config.js
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
@@ -14,6 +15,7 @@ module.exports = {
     { pattern: /rounded-.*/ },
     { pattern: /text-.*/ },
     { pattern: /bg-.*/ },
+    'text-white',
     'text-center',
     'font-sans',
     'font-bold',
@@ -25,10 +27,16 @@ module.exports = {
     'w-full',
     'max-w-md',
     'space-y-10',
+    'min-h-screen',
+    'h-screen',
+    'items-center',
+    'justify-center',
+    'leading-relaxed',
+    'text-lg',
     'text-sm',
-    'md:text-base',
-    'px-6',
-    'py-4',
+    'text-xs',
+    'text-[10px]',
+    'md:text-xl',
     'transition',
     'duration-200',
   ],
@@ -39,10 +47,10 @@ module.exports = {
       },
       colors: {
         evae: {
-          e: '#e94e77',         // E = Emotion
-          v: '#3490dc',         // V = Vision
-          lambda: '#38a169',    // Λ = Logic
-          eMirror: '#9f7aea',   // Ǝ = Echo
+          e: '#e94e77',
+          v: '#3490dc',
+          lambda: '#38a169',
+          eMirror: '#9f7aea',
         },
         cyan: {
           100: '#A5F3FC',
