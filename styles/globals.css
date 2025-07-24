@@ -2,15 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ✅ ここはもう普通のCSSで背景指定 */
+/* ✅ グローバルのフォントとスムージング設定 */
 html, body {
-  color: #1f2937;                 /* ← text-gray-800 相当 */
   font-family: 'Noto Sans JP', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  color: #1f2937; /* text-gray-800 相当 */
+  /* ❌ background-color: white; ← 削除済（背景画像に干渉するため） */
 }
 
-/* ✅ Tailwindにカスタムアニメーションのclass名を登録する */
+/* ✅ カスタムアニメーションユーティリティを登録 */
 @layer utilities {
   .animate-fadeInUp {
     animation: fadeInUp 0.8s ease-out forwards;
@@ -32,3 +33,5 @@ html, body {
     animation-delay: 0.4s;
   }
 }
+
+/* ✅ 任意で明示的に必要な色やサイズのユーティリティを safelist 側と一致させるとより確実 */
