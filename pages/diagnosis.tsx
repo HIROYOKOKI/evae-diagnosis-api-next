@@ -1,4 +1,5 @@
 // pages/diagnosis.tsx
+
 import { useState } from 'react';
 import { questions } from '../data/questions';
 import DiagnosisResult from '../components/DiagnosisResult';
@@ -23,15 +24,16 @@ export default function DiagnosisPage() {
   const q = questions[current];
 
   return (
-    <div className="relative min-h-screen flex items-center justify-center bg-black text-white font-sans px-4">
+    <div className="relative min-h-screen flex items-center justify-center text-cyan-100 font-sans px-4">
       {/* 背景 */}
       <div className="absolute inset-0 -z-10">
         <img src="/background.png" alt="背景" className="w-full h-full object-cover" />
         <div className="absolute inset-0 bg-black opacity-40" />
       </div>
 
+      {/* 質問 UI */}
       <div className="relative z-10 w-full max-w-md text-center space-y-10">
-        <h2 className="text-lg md:text-xl font-bold text-cyan-100 drop-shadow-md tracking-wide">
+        <h2 className="text-lg md:text-xl font-bold text-cyan-100 drop-shadow-md tracking-wide w-fit mx-auto leading-relaxed">
           Q{q.id}. {q.text}
         </h2>
 
@@ -40,7 +42,7 @@ export default function DiagnosisPage() {
             <button
               key={index}
               onClick={() => handleSelect(opt.structure)}
-              className="w-full px-6 py-4 border border-cyan-300 text-cyan-100 rounded-xl bg-transparent hover:bg-cyan-800/20 transition duration-200 text-left font-sans text-sm md:text-base shadow-md"
+              className="w-full px-6 py-4 border border-cyan-300 rounded-xl bg-transparent hover:bg-cyan-800/20 transition duration-200 text-left text-cyan-100 text-sm md:text-base tracking-wide"
             >
               ◉ {opt.text}
             </button>
