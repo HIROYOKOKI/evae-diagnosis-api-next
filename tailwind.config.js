@@ -8,38 +8,33 @@ module.exports = {
     './styles/**/*.{css}',
   ],
   safelist: [
-    { pattern: /text-cyan-.*/ },
-    { pattern: /bg-cyan-.*/ },
-    { pattern: /hover:bg-cyan-.*/ },
-    { pattern: /border-cyan-.*/ },
-    { pattern: /rounded-.*/ },
-    { pattern: /text-.*/ },
-    { pattern: /bg-.*/ },
-    'text-white',
-    'text-center',
-    'font-sans',
-    'font-bold',
-    'tracking-wide',
-    'drop-shadow-md',
-    'shadow-md',
-    'relative',
-    'z-10',
-    'w-full',
-    'max-w-md',
-    'space-y-10',
-    'min-h-screen',
-    'h-screen',
-    'items-center',
-    'justify-center',
-    'leading-relaxed',
-    'text-lg',
-    'text-sm',
-    'text-xs',
-    'text-[10px]',
-    'md:text-xl',
-    'transition',
-    'duration-200',
-  ],
+  { pattern: /text-cyan-.*/ },
+  { pattern: /bg-cyan-.*/ },
+  { pattern: /hover:bg-cyan-.*/ },
+  { pattern: /border-cyan-.*/ },
+  { pattern: /rounded-.*/ },
+  { pattern: /text-.*/ },
+  { pattern: /bg-.*/ },
+  { pattern: /opacity-.*/ },         // 追加
+  { pattern: /transition.*/ },       // 追加
+  { pattern: /duration-.*/ },        // 追加
+  'text-center',
+  'font-sans',
+  'font-bold',
+  'tracking-wide',
+  'drop-shadow-md',
+  'shadow-md',
+  'relative',
+  'z-10',
+  'w-full',
+  'max-w-md',
+  'space-y-10',
+  'absolute',                       // 追加
+  'inset-0',                        // 追加
+  'object-cover',                   // 追加
+  'bg-black',                       // 追加
+  'text-white',                     // 安全のため追加
+]
   theme: {
     extend: {
       fontFamily: {
