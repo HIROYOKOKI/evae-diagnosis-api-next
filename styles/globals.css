@@ -4,10 +4,17 @@
 
 /* ✅ グローバル背景・文字色設定 */
 html, body {
-  color: white; /* ← ここで白文字を指定 */
+  color: white; /* 白文字 */
   font-family: 'Noto Sans JP', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  /* ✅ 背景画像の追加設定 */
+  background-image: url('/背景２.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 
 /* ✅ Tailwindにカスタムアニメーションのclass名を登録 */
@@ -30,5 +37,37 @@ html, body {
 
   .delay-\[400ms\] {
     animation-delay: 0.4s;
+  }
+}
+
+/* ✅ 必要であればカスタムキーフレームも追加（例） */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes wiggle {
+  0%, 100% {
+    transform: rotate(-3deg);
+  }
+  50% {
+    transform: rotate(3deg);
   }
 }
