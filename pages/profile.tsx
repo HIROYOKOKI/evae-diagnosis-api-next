@@ -64,10 +64,9 @@ export default function SoulProfileForm() {
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-6">
+          {/* 仮名 */}
           <div>
-            <label htmlFor="name" className="block text-cyan-200 text-sm font-bold mb-2">
-              仮名：
-            </label>
+            <label htmlFor="name" className="block text-cyan-200 text-sm font-bold mb-2">仮名：</label>
             <input
               type="text"
               id="name"
@@ -80,10 +79,9 @@ export default function SoulProfileForm() {
             />
           </div>
 
+          {/* 生年月日 */}
           <div>
-            <label htmlFor="birthdate" className="block text-cyan-200 text-sm font-bold mb-2">
-              生年月日：
-            </label>
+            <label htmlFor="birthdate" className="block text-cyan-200 text-sm font-bold mb-2">生年月日：</label>
             <input
               type="date"
               id="birthdate"
@@ -95,6 +93,7 @@ export default function SoulProfileForm() {
             />
           </div>
 
+          {/* 血液型 */}
           <div>
             <label className="block text-cyan-200 text-sm font-bold mb-2">血液型：</label>
             <div className="flex flex-wrap gap-4">
@@ -105,13 +104,11 @@ export default function SoulProfileForm() {
                     name="bloodType"
                     value={type}
                     onChange={handleChange}
-                    required
+                    checked={formData.bloodType === type}
                     className="hidden"
                   />
-                  <span className={`w-5 h-5 rounded-full border-2 transition-all duration-200 flex items-center justify-center ${formData.bloodType === type ? 'bg-cyan-500 border-cyan-500' : 'border-cyan-600 hover:border-cyan-400'}`}>
-                    {formData.bloodType === type && (
-                      <span className="w-2.5 h-2.5 bg-black rounded-full" />
-                    )}
+                  <span className={`w-5 h-5 rounded-full border-2 ${formData.bloodType === type ? 'bg-cyan-500 border-cyan-500' : 'border-cyan-600 hover:border-cyan-400'} flex items-center justify-center`}>
+                    {formData.bloodType === type && <span className="w-2.5 h-2.5 bg-black rounded-full" />}
                   </span>
                   <span className="text-cyan-100 text-base">{type}型</span>
                 </label>
@@ -119,6 +116,7 @@ export default function SoulProfileForm() {
             </div>
           </div>
 
+          {/* 性別 */}
           <div>
             <label className="block text-cyan-200 text-sm font-bold mb-2">性別：</label>
             <div className="flex flex-wrap gap-4">
@@ -129,13 +127,11 @@ export default function SoulProfileForm() {
                     name="gender"
                     value={g}
                     onChange={handleChange}
-                    required
+                    checked={formData.gender === g}
                     className="hidden"
                   />
-                  <span className={`w-5 h-5 rounded-full border-2 transition-all duration-200 flex items-center justify-center ${formData.gender === g ? 'bg-cyan-500 border-cyan-500' : 'border-cyan-600 hover:border-cyan-400'}`}>
-                    {formData.gender === g && (
-                      <span className="w-2.5 h-2.5 bg-black rounded-full" />
-                    )}
+                  <span className={`w-5 h-5 rounded-full border-2 ${formData.gender === g ? 'bg-cyan-500 border-cyan-500' : 'border-cyan-600 hover:border-cyan-400'} flex items-center justify-center`}>
+                    {formData.gender === g && <span className="w-2.5 h-2.5 bg-black rounded-full" />}
                   </span>
                   <span className="text-cyan-100 text-base">{g}</span>
                 </label>
@@ -143,6 +139,7 @@ export default function SoulProfileForm() {
             </div>
           </div>
 
+          {/* 恋愛対象 */}
           <div>
             <label className="block text-cyan-200 text-sm font-bold mb-2">恋愛対象：</label>
             <div className="flex flex-wrap gap-4">
@@ -153,13 +150,11 @@ export default function SoulProfileForm() {
                     name="romanticPref"
                     value={r}
                     onChange={handleChange}
-                    required
+                    checked={formData.romanticPref === r}
                     className="hidden"
                   />
-                  <span className={`w-5 h-5 rounded-full border-2 transition-all duration-200 flex items-center justify-center ${formData.romanticPref === r ? 'bg-cyan-500 border-cyan-500' : 'border-cyan-600 hover:border-cyan-400'}`}>
-                    {formData.romanticPref === r && (
-                      <span className="w-2.5 h-2.5 bg-black rounded-full" />
-                    )}
+                  <span className={`w-5 h-5 rounded-full border-2 ${formData.romanticPref === r ? 'bg-cyan-500 border-cyan-500' : 'border-cyan-600 hover:border-cyan-400'} flex items-center justify-center`}>
+                    {formData.romanticPref === r && <span className="w-2.5 h-2.5 bg-black rounded-full" />}
                   </span>
                   <span className="text-cyan-100 text-base">{r}</span>
                 </label>
@@ -167,6 +162,7 @@ export default function SoulProfileForm() {
             </div>
           </div>
 
+          {/* 保存ボタン */}
           <button
             type="submit"
             className="w-full py-3 bg-cyan-600 hover:bg-cyan-700 transition-colors duration-300 rounded-full text-white font-bold text-lg shadow-lg shadow-cyan-500/30 mt-6"
