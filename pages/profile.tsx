@@ -43,8 +43,6 @@ body: JSON.stringify(formData),
   console.error("プロフィール診断エラー:", error);
   alert(`プロフィールの保存に失敗しました。詳細: ${error.message} もう一度お試しください。`);
 }
-```
-
 };
 
 return ( <div className="relative min-h-screen flex items-center justify-center text-cyan-100 font-sans px-4 py-8 overflow-hidden"> <div className="absolute inset-0 -z-10"> <div className="absolute inset-0 bg-black opacity-60" /> <div className="absolute inset-0 bg-gradient-to-t from-transparent via-transparent to-cyan-900/10" /> </div>
