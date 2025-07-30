@@ -17,7 +17,7 @@ gender: "",
 romanticPref: "",
 });
 
-const handleChange = (e: ChangeEvent\<HTMLInputElement | HTMLSelectElement>) => {
+const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
 const { name, value } = e.target;
 setFormData((prev) => ({ ...prev, \[name]: value }));
 };
