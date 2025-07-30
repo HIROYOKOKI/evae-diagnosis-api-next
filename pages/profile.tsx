@@ -54,11 +54,7 @@
           {/* 背景要素 */}
           <div className="absolute inset-0 -z-10">
             {/* 背景画像 (placeholderを使用) */}
-            <img
-  src="/背景２.png"
-  alt="背景"
-  className="w-full h-full object-cover"
-/>
+        
             {/* 背景を暗くし、微妙な光沢を加えるためのオーバーレイ */}
             <div className="absolute inset-0 bg-black opacity-60" />
             <div className="absolute inset-0 bg-gradient-to-t from-transparent via-transparent to-cyan-900/10" />
