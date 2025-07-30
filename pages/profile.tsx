@@ -63,11 +63,6 @@ export default function SoulProfileForm() {
       {/* 背景要素 */}
       <div className="absolute inset-0 -z-10">
         {/* 背景画像 (placeholderを使用) */}
-        <img
-          src="https://placehold.co/1920x1080/0A0A2A/E0FFFF?text=Space+Background"
-          alt="背景"
-          className="w-full h-full object-cover"
-        />
         {/* 背景を暗くし、微妙な光沢を加えるためのオーバーレイ */}
         <div className="absolute inset-0 bg-black opacity-60" />
         <div className="absolute inset-0 bg-gradient-to-t from-transparent via-transparent to-cyan-900/10" />
