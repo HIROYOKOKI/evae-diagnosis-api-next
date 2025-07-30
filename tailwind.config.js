@@ -1,11 +1,11 @@
 // tailwind.config.js
 module.exports = {
-  content: [
-    './pages/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './app/**/*.{js,ts,jsx,tsx}',
-    // './styles/**/*.{css}', // globals.cssは通常不要だが、念のため
-  ],
+content: [
+  './pages/**/*.{js,ts,jsx,tsx}',
+  './components/**/*.{js,ts,jsx,tsx}',
+  './app/**/*.{js,ts,jsx,tsx}',
+  './styles/**/*.{css}', // ← ✅ コメントアウトを外して有効に！
+],
   safelist: [
     // 既存のsafelist
     'text-cyan-100',
