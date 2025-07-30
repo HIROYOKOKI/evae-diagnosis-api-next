@@ -19,7 +19,7 @@ const DiagnosisResult = ({ score }) => (
     <div className="bg-cyan-900/30 border border-cyan-700 rounded-xl p-6 shadow-xl w-full max-w-sm">
       <ul className="space-y-3">
         {Object.entries(score).map(([key, value]) => (
-          <li key={key} className="text-lg flex justify-between items-center">
+          <li key={key as string} className="text-lg flex justify-between items-center">
             <span className="font-semibold">{key}</span>
             <span className="text-xl text-cyan-300">{value}</span>
           </li>
@@ -43,7 +43,7 @@ export default function DiagnosisPage() {
   const [score, setScore] = useState({ E: 0, V: 0, Λ: 0, Ǝ: 0 });
   const [finished, setFinished] = useState(false);
 
-  const handleSelect = (structure) => {
+  const handleSelect = (structure: keyof typeof score) => {
     const updated = { ...score, [structure]: score[structure] + 1 };
     setScore(updated);
     if (current + 1 < questions.length) {
@@ -96,7 +96,7 @@ export default function DiagnosisPage() {
             <button
               key={index}
               onClick={() => handleSelect(opt.structure)}
-              className="relative w-full py-5 md:py-6 border-2 border-cyan-500 rounded-xl bg-transparent
+              className="relative w-full py-6 border-2 border-cyan-500 rounded-xl bg-transparent
                          hover:bg-cyan-800/20 transition-all duration-300 text-center text-cyan-100 text-xl font-bold
                          shadow-lg shadow-cyan-500/20
                          flex items-center justify-start space-x-4 px-6 group"
