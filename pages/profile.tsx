@@ -10,12 +10,12 @@ romanticPref: string;
 }
 
 export default function SoulProfileForm() {
-const \[formData, setFormData] = useState<FormData>({
-name: "",
-birthdate: "",
-bloodType: "",
-gender: "",
-romanticPref: "",
+const [formData, setFormData] = useState<FormData>({
+  name: "",
+  birthdate: "",
+  bloodType: "",
+  gender: "",
+  romanticPref: "",
 });
 
 const handleChange = (e: ChangeEvent\<HTMLInputElement | HTMLSelectElement>) => {
