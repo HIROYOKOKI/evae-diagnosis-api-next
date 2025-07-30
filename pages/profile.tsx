@@ -170,7 +170,5 @@ return <div className="relative min-h-screen flex items-center justify-center te
     </form>
   </div>
 </div>
-```
-
 );
 }
