@@ -40,12 +40,16 @@ export default function DiagnosisPage() {
         <div className="space-y-4">
   {q.options.map((opt, index) => (
   <button
-    key={index}
-    onClick={() => handleSelect(opt.structure)}
-    className="w-full max-w-[360px] mx-auto px-6 py-6 h-16 text-lg border border-cyan-300 rounded-xl bg-transparent hover:bg-cyan-800/20 transition duration-200 text-left text-cyan-100 tracking-wide"
-  >
-    ◉ {opt.text}
-  </button>
+  key={index}
+  onClick={() => handleSelect(opt.structure)}
+  className="w-full px-6 py-5 rounded-2xl border-2 border-cyan-400 
+             bg-cyan-900/30 hover:bg-cyan-900/50
+             text-cyan-100 text-lg font-semibold tracking-wide 
+             flex items-center justify-start space-x-2 transition duration-200"
+>
+  <span>◉</span>
+  <span>{opt.text}</span>
+</button>
 ))}
 </div>
 
