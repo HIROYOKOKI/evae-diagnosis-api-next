@@ -42,7 +42,7 @@ export default function DiagnosisPage() {
   <button
     key={index}
     onClick={() => handleSelect(opt.structure)}
-    className="w-full max-w-[360px] mx-auto px-6 py-5 border-2 border-cyan-300 rounded-xl bg-transparent hover:bg-cyan-800/30 transition duration-200 text-center text-cyan-100 text-lg font-semibold tracking-wide"
+    className="w-full max-w-[360px] mx-auto px-6 py-6 h-16 text-lg border border-cyan-300 rounded-xl bg-transparent hover:bg-cyan-800/20 transition duration-200 text-left text-cyan-100 tracking-wide"
   >
     ◉ {opt.text}
   </button>
