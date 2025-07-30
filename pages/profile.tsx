@@ -31,8 +31,6 @@ method: "POST",
 headers: { "Content-Type": "application/json" },
 body: JSON.stringify(formData),
 });
-
-```
   if (!res.ok) {
     const errorText = await res.text();
     throw new Error(`API response not OK: ${res.status} - ${errorText}`);
