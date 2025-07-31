@@ -35,16 +35,22 @@ export default async function handler(req, res) {
 
   const comment = (await response1.json()).choices?.[0]?.message?.content?.trim();
 
-  const proverbPrompt = `
-以下の診断コメントに合った格言（アドバイス）を日本語で1文だけ作ってください。
-
-● 診断コメント: 「${comment}」
+ const proverbPrompt = `
+以下の診断コメントに合わせて、${structure}タイプに対応した著名人の名言を1つ出力してください。
 
 【条件】
-- 30文字以内
-- 文末に「。」をつける
-- 静かな励まし、気づき、余韻のある言葉で
-- 現実的・励まし寄りの語り口に調整
+- 日本語訳で30文字以内
+- 文末は「。」で終える
+- 最後に「（人物名）」をつける
+
+【診断コメント】
+「${comment}」
+
+【著名人リスト】
+${structure === 'E' ? 'スティーブ・ジョブズ、宮沢賢治、岡本太郎' :
+  structure === 'V' ? 'アインシュタイン、ユング、ウォルト・ディズニー' :
+  structure === 'Λ' ? '夏目漱石、フロイト、老子' :
+  'カール・セーガン、道元、芥川龍之介'}
 `;
 
   const response2 = await fetch('https://api.openai.com/v1/chat/completions', {
