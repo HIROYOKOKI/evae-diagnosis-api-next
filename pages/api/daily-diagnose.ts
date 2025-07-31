@@ -16,7 +16,7 @@ export default async function handler(req, res) {
 ユーザーの状態を優しくポジティブに説明する診断コメントを日本語で1文だけ出力してください。
 
 ● 構造: ${structure}
-● 文体: 少し詩的、やさしく、前向きに
+● 文体:  少し具体化して、共感しやすやさしく、前向きに
 ● 文字数: 120文字以内
 `;
 
@@ -44,7 +44,7 @@ export default async function handler(req, res) {
 - 30文字以内
 - 文末に「。」をつける
 - 静かな励まし、気づき、余韻のある言葉で
-- 詩的でも、哲学的でもOK
+- 現実的・励まし寄りの語り口に調整
 `;
 
   const response2 = await fetch('https://api.openai.com/v1/chat/completions', {
