@@ -40,11 +40,17 @@ export default async function handler(req, res) {
       }),
     });
 
-    const content = response.status === 200 ? (await response.json()).choices?.[0]?.message?.content : null;
+   const content = response.status === 200 ? (await response.json()).choices?.[0]?.message?.content : null;
 
-    if (!content) throw new Error('Empty response');
+if (!content) throw new Error('Empty response');
 
-    const parsed = JSON.parse(content);
+const cleanContent = content
+  .replace(/^```json/, '')
+  .replace(/^```/, '')
+  .replace(/```$/, '')
+  .trim();
+
+const parsed = JSON.parse(cleanContent);
     res.status(200).json(parsed);
   } catch (error) {
     console.error('Error fetching daily question:', error);
