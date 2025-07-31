@@ -1,28 +1,80 @@
-// pages/daily.tsx
+import { useEffect, useState } from 'react';
 
-export default function Daily() {
+interface Choice {
+  label: string;
+  text: string;
+  structure: string;
+}
+
+export default function DailyDiagnosis() {
+  const [question, setQuestion] = useState('');
+  const [choices, setChoices] = useState<Choice[]>([]);
+  const [selected, setSelected] = useState<string | null>(null);
+  const [result, setResult] = useState<{ comment: string; proverb: string } | null>(null);
+
+  // 1. 質問データを取得
+  useEffect(() => {
+    fetch('/api/daily-question')
+      .then((res) => res.json())
+      .then((data) => {
+        setQuestion(data.question);
+        setChoices(data.choices);
+      })
+      .catch((err) => console.error('質問取得失敗:', err));
+  }, []);
+
+  // 2. 回答送信
+  const handleSubmit = async () => {
+    if (!selected) return;
+    try {
+      const res = await fetch('/api/daily-diagnose', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ structure: selected }),
+      });
+      const data = await res.json();
+      setResult(data);
+    } catch (err) {
+      console.error('診断失敗:', err);
+    }
+  };
+
   return (
-    <div className="min-h-screen bg-[#f7f7f9] px-6 py-12 text-center font-sans text-[#0c0f3a]">
-      <h1 className="text-3xl font-bold mb-2 flex items-center justify-center gap-2">
-        <span role="img" aria-label="icon">🧭</span> 今日の問い
-      </h1>
-      <p className="text-sm text-gray-600 mb-10">
-        あなたが今、一番引かれる言葉はどれですか？
-      </p>
+    <div className="min-h-screen bg-black text-white p-6">
+      <h1 className="text-3xl font-bold mb-6">デイリー診断</h1>
+      {question && (
+        <div className="mb-4">
+          <p className="text-lg mb-4">{question}</p>
+          <div className="space-y-2">
+            {choices.map((choice) => (
+              <button
+                key={choice.label}
+                className={`w-full text-left p-3 border rounded ${
+                  selected === choice.structure ? 'bg-cyan-600' : 'border-cyan-500'
+                }`}
+                onClick={() => setSelected(choice.structure)}
+              >
+                {choice.text}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+      <button
+        className="mt-6 bg-cyan-500 hover:bg-cyan-600 text-white px-6 py-2 rounded"
+        onClick={handleSubmit}
+        disabled={!selected}
+      >
+        診断する
+      </button>
 
-      <div className="space-y-4 max-w-sm w-full mx-auto">
-        <button className="w-full py-3 px-6 rounded-lg border border-evæ-e text-evæ-e bg-white hover:bg-evæ-e hover:text-white transition">
-          静寂
-        </button>
-        <button className="w-full py-3 px-6 rounded-lg border border-evæ-v text-evæ-v bg-white hover:bg-evæ-v hover:text-white transition">
-          衝動
-        </button>
-      </div>
-
-      {/* ルネアのセリフ */}
-      <div className="mt-16 text-sm text-gray-500 italic text-right max-w-sm mx-auto">
-        ルネア：「どちらを選んでも、構造は響く。」
-      </div>
+      {result && (
+        <div className="mt-8 border-t border-gray-700 pt-4">
+          <p className="text-xl font-semibold mb-2">診断コメント：</p>
+          <p className="mb-4">{result.comment}</p>
+          <p className="text-lg text-cyan-300 font-mono">「{result.proverb}」</p>
+        </div>
+      )}
     </div>
   );
 }
