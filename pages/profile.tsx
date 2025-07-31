@@ -10,11 +10,11 @@ interface FormData {
 
 export default function SoulProfileForm() {
   const [formData, setFormData] = useState<FormData>({
-    name: "",
-    birthdate: "",
-    bloodType: "",
-    gender: "",
-    romanticPref: "",
+    name: '',
+    birthdate: '',
+    bloodType: '',
+    gender: '',
+    romanticPref: '',
   });
 
   const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -27,8 +27,8 @@ export default function SoulProfileForm() {
     try {
       const apiUrl = `${window.location.origin}/api/profile-diagnose`;
       const res = await fetch(apiUrl, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
       });
 
@@ -38,10 +38,10 @@ export default function SoulProfileForm() {
       }
 
       const data = await res.json();
-      console.log("プロフィール診断結果:", data.comment);
-      alert("プロフィールが保存されました！");
+      console.log('プロフィール診断結果:', data.comment);
+      alert('プロフィールが保存されました！');
     } catch (error: any) {
-      console.error("プロフィール診断エラー:", error);
+      console.error('プロフィール診断エラー:', error);
       alert(`プロフィールの保存に失敗しました。詳細: ${error.message} もう一度お試しください。`);
     }
   };
@@ -64,7 +64,6 @@ export default function SoulProfileForm() {
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-6">
-          {/* 仮名 */}
           <div>
             <label htmlFor="name" className="block text-cyan-200 text-sm font-bold mb-2">仮名：</label>
             <input
@@ -79,7 +78,6 @@ export default function SoulProfileForm() {
             />
           </div>
 
-          {/* 生年月日 */}
           <div>
             <label htmlFor="birthdate" className="block text-cyan-200 text-sm font-bold mb-2">生年月日：</label>
             <input
@@ -93,7 +91,6 @@ export default function SoulProfileForm() {
             />
           </div>
 
-          {/* 血液型 */}
           <div>
             <label className="block text-cyan-200 text-sm font-bold mb-2">血液型：</label>
             <div className="flex flex-wrap gap-4">
@@ -116,7 +113,6 @@ export default function SoulProfileForm() {
             </div>
           </div>
 
-          {/* 性別 */}
           <div>
             <label className="block text-cyan-200 text-sm font-bold mb-2">性別：</label>
             <div className="flex flex-wrap gap-4">
@@ -139,7 +135,6 @@ export default function SoulProfileForm() {
             </div>
           </div>
 
-          {/* 恋愛対象 */}
           <div>
             <label className="block text-cyan-200 text-sm font-bold mb-2">恋愛対象：</label>
             <div className="flex flex-wrap gap-4">
@@ -162,7 +157,6 @@ export default function SoulProfileForm() {
             </div>
           </div>
 
-          {/* 保存ボタン */}
           <button
             type="submit"
             className="w-full py-3 bg-cyan-600 hover:bg-cyan-700 transition-colors duration-300 rounded-full text-white font-bold text-lg shadow-lg shadow-cyan-500/30 mt-6"
