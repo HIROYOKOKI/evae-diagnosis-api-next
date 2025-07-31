@@ -68,6 +68,18 @@ content: [
     'absolute', 'inset-0', '-z-10', 'w-full', 'h-full', 'object-cover', 'opacity-60',
     'bg-gradient-to-t', 'from-transparent', 'via-transparent', 'to-cyan-900/10',
   ],
+  safelistPatterns: [
+    /^bg-cyan-/,
+    /^border-cyan-/,
+    /^text-cyan-/,
+    /^rounded/,
+    /^w-/, /^h-/,
+    /^py-/, /^px-/,
+    /^mt-/, /^mb-/, /^space-y-/,
+    /^shadow/,
+    /^opacity/,
+    /^transition/,
+  ],
   theme: {
     extend: {
       fontFamily: {
