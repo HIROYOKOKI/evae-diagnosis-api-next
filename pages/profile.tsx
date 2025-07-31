@@ -1,56 +1,28 @@
-import { useState, ChangeEvent, FormEvent } from 'react';
+<input
+  type="text"
+  name="name"
+  placeholder="あなたの名前"
+  value={formData.name}
+  onChange={handleChange}
+/>
 
-interface FormData {
-  name: string;
-  birthdate: string;
-  bloodType: string;
-  gender: string;
-  romanticPref: string;
-}
+<input
+  type="date"
+  name="birthdate"
+  value={formData.birthdate}
+  onChange={handleChange}
+/>
 
-export default function SoulProfileForm() {
-  const [formData, setFormData] = useState<FormData>({
-    name: '',
-    birthdate: '',
-    bloodType: '',
-    gender: '',
-    romanticPref: '',
-  });
+<select name="bloodType" value={formData.bloodType} onChange={handleChange}>
+  <option value="">血液型を選択</option>
+  <option value="A">A型</option>
+  <option value="B">B型</option>
+  <option value="O">O型</option>
+  <option value="AB">AB型</option>
+</select>
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
+{/* 他の項目も同様に */ }
 
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    try {
-      const apiUrl = `${window.location.origin}/api/profile-diagnose`;
-      const res = await fetch(apiUrl, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
-      });
-
-      if (!res.ok) {
-        const errorText = await res.text();
-        throw new Error(`API response not OK: ${res.status} - ${errorText}`);
-      }
-
-      const data = await res.json();
-      console.log('プロフィール診断結果:', data.comment);
-      alert('プロフィールが保存されました！');
-    } catch (error: any) {
-      console.error('プロフィール診断エラー:', error);
-      alert(`プロフィールの保存に失敗しました。詳細: ${error.message}`);
-    }
-  };
-
-  return (
-    <form onSubmit={handleSubmit}>
-      <input name="name" value={formData.name} onChange={handleChange} />
-      <input name="birthdate" value={formData.birthdate} onChange={handleChange} />
-      <button type="submit">送信</button>
-    </form>
-  );
-}
+<button type="submit" className="bg-blue-500 text-white p-2 rounded">
+  プロフィールを送信
+</button>
