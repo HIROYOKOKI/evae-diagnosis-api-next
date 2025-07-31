@@ -9,7 +9,7 @@ interface FormData {
 }
 
 export default function SoulProfileForm() {
-  const [formData, setFormData] = useState<FormData>({
+  const[formData, setFormData] = useState<FormData>({
     name: '',
     birthdate: '',
     bloodType: '',
