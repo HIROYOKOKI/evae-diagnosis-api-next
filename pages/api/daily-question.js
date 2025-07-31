@@ -1,5 +1,3 @@
-// pages/api/daily-question.js
-
 export default async function handler(req, res) {
   if (req.method !== 'GET') {
     return res.status(405).json({ error: 'Method not allowed' });
@@ -9,16 +7,20 @@ export default async function handler(req, res) {
 
   const prompt = `
 あなたは「ソウルレイヤー診断用の1問だけのデイリー設問」を生成するAIです。
-以下の形式で問いを作ってください。
+以下の形式で、JSONとして問いを1つ生成してください。
 
-Q: 今日のあなたは、どんな感覚に近いですか？
-A1: 落ち着いていて、すぐ動けそう（E）
-A2: 誰かとつながりたい気分（V）
-A3: 考え事を整理したい（Λ）
-A4: 何か新しい刺激に触れたい（Ǝ）
+出力形式:
+{
+  "question": "今日のあなたは、どんな感覚に近いですか？",
+  "choices": [
+    { "label": "A1", "text": "落ち着いていて、すぐ動けそう", "structure": "E" },
+    { "label": "A2", "text": "誰かとつながりたい気分", "structure": "V" },
+    { "label": "A3", "text": "考え事を整理したい", "structure": "Λ" },
+    { "label": "A4", "text": "何か新しい刺激に触れたい", "structure": "Ǝ" }
+  ]
+}
 
-出力形式は上記のように
-Q:（設問）＋ A1〜A4を返してください。
+必ず上記の形式で返してください（ダブルクォート付きのJSON）。
 今日の日付：${today}
 `;
 
@@ -26,21 +28,24 @@ Q:（設問）＋ A1〜A4を返してください。
     const response = await fetch('https://api.openai.com/v1/chat/completions', {
       method: 'POST',
       headers: {
-        'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`,
-        'Content-Type': 'application/json'
+        Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify({
         model: 'gpt-4',
         messages: [{ role: 'user', content: prompt }],
+        temperature: 0.7,
       }),
     });
 
-    const data = await response.json();
-    const question = data.choices?.[0]?.message?.content;
+    const content = response.status === 200 ? (await response.json()).choices?.[0]?.message?.content : null;
 
-    res.status(200).json({ question });
+    if (!content) throw new Error('Empty response');
+
+    const parsed = JSON.parse(content);
+    res.status(200).json(parsed);
   } catch (error) {
     console.error('Error fetching daily question:', error);
-    res.status(500).json({ error: 'Failed to fetch question' });
+    res.status(500).json({ error: 'Failed to fetch structured question' });
   }
 }
